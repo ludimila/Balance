@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02208F761CE3C2CA009AF914 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02208F751CE3C2CA009AF914 /* MenuScene.swift */; };
+		02208F781CE3C927009AF914 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02208F771CE3C927009AF914 /* MenuScene.sks */; };
 		93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3A1CE3BC42008677AB /* GameLayer.swift */; };
 		93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */; };
 		93894D3F1CE3BD28008677AB /* HudLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3E1CE3BD28008677AB /* HudLayer.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02208F751CE3C2CA009AF914 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		02208F771CE3C927009AF914 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
 		93894D3A1CE3BC42008677AB /* GameLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLayer.swift; sourceTree = "<group>"; };
 		93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundLayer.swift; sourceTree = "<group>"; };
 		93894D3E1CE3BD28008677AB /* HudLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudLayer.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				93FE57481CE3B11E00C787C3 /* GameScene.sks */,
 				93FE574A1CE3B11E00C787C3 /* GameScene.swift */,
 				93FE574C1CE3B11E00C787C3 /* GameViewController.swift */,
+				02208F751CE3C2CA009AF914 /* MenuScene.swift */,
+				02208F771CE3C927009AF914 /* MenuScene.sks */,
 				93FE574E1CE3B11E00C787C3 /* Game.xcassets */,
 				93FE57501CE3B11E00C787C3 /* Main.storyboard */,
 				93FE57531CE3B11E00C787C3 /* Assets.xcassets */,
@@ -181,6 +187,7 @@
 				93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */,
 				93FE57491CE3B11E00C787C3 /* GameScene.sks in Resources */,
 				93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */,
+				02208F781CE3C927009AF914 /* MenuScene.sks in Resources */,
 				93FE574F1CE3B11E00C787C3 /* Game.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +205,7 @@
 				93894D3F1CE3BD28008677AB /* HudLayer.swift in Sources */,
 				93894D431CE3BDC0008677AB /* GameObject.swift in Sources */,
 				93894D451CE3BDD0008677AB /* Food.swift in Sources */,
+				02208F761CE3C2CA009AF914 /* MenuScene.swift in Sources */,
 				93894D411CE3BD54008677AB /* Player.swift in Sources */,
 				93FE574D1CE3B11E00C787C3 /* GameViewController.swift in Sources */,
 				93FE57471CE3B11E00C787C3 /* AppDelegate.swift in Sources */,
