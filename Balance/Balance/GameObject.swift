@@ -9,14 +9,14 @@
 import UIKit
 import SpriteKit
 
-class GameObject: SKNode {
+class GameObject: SKSpriteNode {
     
     struct PhysicsCategory {
         static let Player: UInt32 = 1
         static let Food: UInt32 = 2
     }
     
-    func generatePhysicsBodu() -> SKPhysicsBody {
+    func generatePhysicsBody() -> SKPhysicsBody {
         
         //Override
         return SKPhysicsBody(rectangleOfSize: CGSizeMake(100, 100))

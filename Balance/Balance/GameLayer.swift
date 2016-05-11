@@ -10,5 +10,13 @@ import UIKit
 import SpriteKit
 
 class GameLayer: SKNode {
+    
+    var player: Player!
+    
+    init(size: CGSize) {
+        super.init()
+        
+        self.player = Player(position: CGPointMake(size.width/2, size.height * 0.15))
+    }
 
 }
