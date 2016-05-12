@@ -32,10 +32,13 @@ class GameLayer: SKNode {
         self.player.runAction(self.player.idle(), withKey: "animationAction")
         
         
-        let action = SKAction.repeatActionForever(putVariousFoodsInScren())
+        let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
+        let wait = SKAction.waitForDuration(0.5, withRange: 0.1)
+        let sequence = SKAction.sequence([dropFood, wait])
+        let repeatActionForever = SKAction.repeatActionForever(sequence)
         
+        self.runAction(repeatActionForever)
         
-        self.runAction(action)
         self.screenSize = size
     }
     
@@ -75,19 +78,15 @@ class GameLayer: SKNode {
     }
 
 
-    func putVariousFoodsInScren() -> SKAction {
+    func putVariousFoodsInScren() {
         
-        let customAction = SKAction.customActionWithDuration(1) {_,_ in 
-            
+        
             let randomFood = Int(arc4random_uniform(5) + 1)
             
             self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
-            self.addChild(self.food)
             
-        }
-        
-        return customAction
-        
+            self.addChild(self.food)
+ 
     }
     
     

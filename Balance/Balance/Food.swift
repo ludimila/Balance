@@ -21,6 +21,8 @@ class Food: GameObject {
         self.weight = weight
         self.position = position
         self.setScale(2)
+        self.physicsBody = self.generatePhysicsBody()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,7 +31,18 @@ class Food: GameObject {
     
     
     
+    override func  generatePhysicsBody() -> SKPhysicsBody {
+        
+        let physicsBody = SKPhysicsBody(circleOfRadius: self.size.width/2)
+        
+        physicsBody.categoryBitMask = PhysicsCategory.Food
+        physicsBody.contactTestBitMask = PhysicsCategory.Player
+        physicsBody.mass = 1
+        physicsBody.affectedByGravity = true
+        physicsBody.allowsRotation = false
     
+        return physicsBody
+    }
 
     
     
