@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02208F761CE3C2CA009AF914 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02208F751CE3C2CA009AF914 /* MenuScene.swift */; };
 		02208F781CE3C927009AF914 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02208F771CE3C927009AF914 /* MenuScene.sks */; };
+		02208F7C1CE4FBBB009AF914 /* bensound-funnysong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */; };
 		93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3A1CE3BC42008677AB /* GameLayer.swift */; };
 		93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */; };
 		93894D3F1CE3BD28008677AB /* HudLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3E1CE3BD28008677AB /* HudLayer.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		02208F751CE3C2CA009AF914 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		02208F771CE3C927009AF914 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-funnysong.mp3"; sourceTree = "<group>"; };
 		93894D3A1CE3BC42008677AB /* GameLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLayer.swift; sourceTree = "<group>"; };
 		93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundLayer.swift; sourceTree = "<group>"; };
 		93894D3E1CE3BD28008677AB /* HudLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudLayer.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		93894D381CE3BBE4008677AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02208F7C1CE4FBBB009AF914 /* bensound-funnysong.mp3 in Resources */,
 				93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */,
 				93FE57491CE3B11E00C787C3 /* GameScene.sks in Resources */,
 				93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */,
