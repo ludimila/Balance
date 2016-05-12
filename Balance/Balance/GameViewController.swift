@@ -10,9 +10,10 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
 
         if let scene = MenuScene(fileNamed: "MenuScene") {
             // Configure the view.
@@ -26,13 +27,14 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
+            BackgroundMusic.sharedInstance.playMusic()
+
             skView.presentScene(scene)
         }
         
-        BackgroundMusic.sharedInstance.playMusic()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.

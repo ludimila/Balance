@@ -36,23 +36,21 @@ class MenuScene: SKScene {
         let location: CGPoint = touch.locationInNode(self)
         
         if playButton.containsPoint(location) {
+
+            let scene = GameScene(size: self.size)
+            // Configure the view.
+            let skView = self.view
+            skView!.showsFPS = true
             
-            if let scene = GameScene(fileNamed: "GameScene") {
-                // Configure the view.
-                let skView = self.view
-                skView!.showsFPS = true
-                skView!.showsNodeCount = true
-                
-                /* Sprite Kit applies additional optimizations to improve rendering performance */
-                skView!.ignoresSiblingOrder = true
-                
-                /* Set the scale mode to scale to fit the window */
-                scene.scaleMode = .AspectFill
-                
-                let transition = SKTransition.crossFadeWithDuration(1)
-                
-                skView!.presentScene(scene, transition: transition)
-            }
+            skView!.showsNodeCount = true
+            
+            skView!.ignoresSiblingOrder = true
+            
+            scene.scaleMode = .AspectFill
+            
+            let transition = SKTransition.crossFadeWithDuration(1)
+            
+            skView!.presentScene(scene, transition: transition)
         }
     }
 

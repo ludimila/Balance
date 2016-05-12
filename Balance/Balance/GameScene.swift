@@ -9,7 +9,9 @@
 import SpriteKit
 import CoreData
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var gameLayer: GameLayer! = nil
     
     var timer: NSTimer!
     var time:Int = 3
@@ -17,10 +19,13 @@ class GameScene: SKScene {
     var actionTimeGame = SKAction()
     let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
     
+    override init(size: CGSize) {
+        super.init(size: size)
+        self.physicsWorld.contactDelegate = self
+    }
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        
-    
         
         timerLabel.fontSize = 65
         timerLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
@@ -30,9 +35,13 @@ class GameScene: SKScene {
             if self.time <= 3 && self.ascending == false {
                 if self.time == 0 {
                     self.timerLabel.text = "GO!"
+                    
                     self.updateLabelPosition()
                     self.ascending = true
                     self.time += 1
+                    
+                    self.gameLayer = GameLayer(size: self.size)
+                    self.addChild(self.gameLayer)
                 }else {
                     self.timerLabel.text = "\(self.time)"
                     self.time -= 1
@@ -44,35 +53,24 @@ class GameScene: SKScene {
         }
         
         self.runAction(SKAction.repeatActionForever(SKAction.sequence([actionTimeGame, timer])),withKey: "timer")
-        
 
         self.addChild(timerLabel)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        /* Called when a touch begins */
-        
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
-        }
-    }
-   
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.gameLayer.touchesMoved(touches, withEvent: event)
+    }
+    override func update(currentTime: CFTimeInterval) {
+
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact){
+        self.gameLayer.didBeginContact(contact)
+    }
 
     func updateLabelPosition() {
         self.runAction(SKAction.runBlock({
@@ -80,7 +78,6 @@ class GameScene: SKScene {
         }))
     }
     
-
     func saveHighscore() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -115,8 +112,5 @@ class GameScene: SKScene {
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
-
     }
-    
-    
 }
