@@ -11,6 +11,9 @@
 		02208F781CE3C927009AF914 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02208F771CE3C927009AF914 /* MenuScene.sks */; };
 		02208F7C1CE4FBBB009AF914 /* bensound-funnysong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */; };
 		02208F7E1CE4FC58009AF914 /* BackgroundMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02208F7D1CE4FC58009AF914 /* BackgroundMusic.swift */; };
+		2704FD7A1CE503C200EEA563 /* HighScoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2704FD781CE503C200EEA563 /* HighScoreModel.xcdatamodeld */; };
+		2704FD7D1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2704FD7B1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift */; };
+		2704FD7E1CE5053A00EEA563 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2704FD7C1CE5053A00EEA563 /* HighScore.swift */; };
 		93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3A1CE3BC42008677AB /* GameLayer.swift */; };
 		93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */; };
 		93894D3F1CE3BD28008677AB /* HudLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3E1CE3BD28008677AB /* HudLayer.swift */; };
@@ -31,6 +34,9 @@
 		02208F771CE3C927009AF914 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
 		02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-funnysong.mp3"; sourceTree = "<group>"; };
 		02208F7D1CE4FC58009AF914 /* BackgroundMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusic.swift; sourceTree = "<group>"; };
+		2704FD791CE503C200EEA563 /* HighScoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HighScoreModel.xcdatamodel; sourceTree = "<group>"; };
+		2704FD7B1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HighScore+CoreDataProperties.swift"; path = "../HighScore+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2704FD7C1CE5053A00EEA563 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighScore.swift; path = ../HighScore.swift; sourceTree = "<group>"; };
 		93894D3A1CE3BC42008677AB /* GameLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLayer.swift; sourceTree = "<group>"; };
 		93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundLayer.swift; sourceTree = "<group>"; };
 		93894D3E1CE3BD28008677AB /* HudLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudLayer.swift; sourceTree = "<group>"; };
@@ -62,6 +68,9 @@
 		93894D361CE3BBBE008677AB /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				2704FD7B1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift */,
+				2704FD7C1CE5053A00EEA563 /* HighScore.swift */,
+				2704FD781CE503C200EEA563 /* HighScoreModel.xcdatamodeld */,
 			);
 			name = Persistence;
 			sourceTree = "<group>";
@@ -206,14 +215,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2704FD7D1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift in Sources */,
 				93FE574B1CE3B11E00C787C3 /* GameScene.swift in Sources */,
 				93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */,
 				93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */,
+				2704FD7E1CE5053A00EEA563 /* HighScore.swift in Sources */,
 				93894D3F1CE3BD28008677AB /* HudLayer.swift in Sources */,
 				93894D431CE3BDC0008677AB /* GameObject.swift in Sources */,
 				93894D451CE3BDD0008677AB /* Food.swift in Sources */,
 				02208F761CE3C2CA009AF914 /* MenuScene.swift in Sources */,
 				93894D411CE3BD54008677AB /* Player.swift in Sources */,
+				2704FD7A1CE503C200EEA563 /* HighScoreModel.xcdatamodeld in Sources */,
 				02208F7E1CE4FC58009AF914 /* BackgroundMusic.swift in Sources */,
 				93FE574D1CE3B11E00C787C3 /* GameViewController.swift in Sources */,
 				93FE57471CE3B11E00C787C3 /* AppDelegate.swift in Sources */,
@@ -363,6 +375,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2704FD781CE503C200EEA563 /* HighScoreModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2704FD791CE503C200EEA563 /* HighScoreModel.xcdatamodel */,
+			);
+			currentVersion = 2704FD791CE503C200EEA563 /* HighScoreModel.xcdatamodel */;
+			path = HighScoreModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 93FE573B1CE3B11E00C787C3 /* Project object */;
 }

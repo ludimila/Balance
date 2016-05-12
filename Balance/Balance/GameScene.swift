@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CoreData
 
 class GameScene: SKScene {
     
@@ -43,6 +44,7 @@ class GameScene: SKScene {
         self.runAction(SKAction.repeatActionForever(SKAction.sequence([actionTimeGame, timer])),withKey: "timer")
         
         self.addChild(myLabel)
+
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -69,7 +71,39 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
     }
     
-    func startGame() {
-        print("Funcionou startGame")
+    func saveHighscore() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let entity =  NSEntityDescription.entityForName("HighScore", inManagedObjectContext:managedContext)
+        
+        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        
+        highScore.setValue(self.time, forKey: "highscore")
+        
+        do {
+            try managedContext.save()
+
+        }catch{
+            fatalError("failure to save highsore: \(error)")
+        }
+    }
+    
+    func getSavedHIghScore() {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName: "HighScore")
+        
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            
+            print(results)
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
     }
 }
