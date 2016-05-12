@@ -9,6 +9,6 @@
 import UIKit
 import SpriteKit
 
-class GameObject: SKNode {
+class GameObject: SKSpriteNode {
 
 }

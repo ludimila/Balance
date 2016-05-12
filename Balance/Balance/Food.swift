@@ -7,7 +7,31 @@
 //
 
 import UIKit
+import SpriteKit
 
 class Food: GameObject {
+    
+    var weight: Int = 0
+    var imageName: String = "Spaceship"
+    
+    
+    init(position: CGPoint, weight: Int, imageName: String) {
+        
+        super.init(texture: SKTexture(imageNamed: imageName), color: UIColor.clearColor(), size: SKTexture(imageNamed: "Spaceship").size())
+    
+        self.weight = weight
+        self.position = position
+    
+        
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+    
 
-}
+}//fim classe
