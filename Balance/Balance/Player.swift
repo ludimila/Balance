@@ -15,6 +15,7 @@ class Player: GameObject {
     private var runState: SKAction!
     private var eatState: SKAction!
     private var weight: Int = 0
+    var movementSpeed = 5
     
     //Instatiate the object with position as parameter
     init(position: CGPoint) {

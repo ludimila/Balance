@@ -10,11 +10,11 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-    
+    var scene: SKScene!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = GameScene(size: view.bounds.size)
+        self.scene = GameScene(size: view.bounds.size)
         // Configure the view.
         let skView = self.view as! SKView
         skView.showsFPS = true
@@ -27,6 +27,11 @@ class GameViewController: UIViewController {
         scene.scaleMode = .AspectFill
         
         skView.presentScene(scene)
+    }
+    
+    override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
+//        print("chegou")
+        scene.pressesBegan(presses, withEvent: event)
     }
     
     override func didReceiveMemoryWarning() {

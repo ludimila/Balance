@@ -26,16 +26,9 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        self.gameLayer.touchesMoved(touches, withEvent: event)
-//    }
-//    
-//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        self.gameLayer.touchesBegan(touches, withEvent: event)
-//    }
     
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
-        self.gameLayer.began(presses)
+        self.gameLayer.pressesBegan(presses, withEvent: event)
         print("Entrou no began")
     }
     
@@ -45,6 +38,7 @@ class GameScene: SKScene {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        self.gameLayer.update(currentTime)
     }
     
     
