@@ -11,9 +11,9 @@ import SpriteKit
 
 class Player: GameObject {
     
-    var idleState: SKAction!
-    var runState: SKAction!
-    var eatState: SKAction!
+    private var idleState: SKAction!
+    private var runState: SKAction!
+    private var eatState: SKAction!
     
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
@@ -30,7 +30,7 @@ class Player: GameObject {
     //MARK: Animations
     
     //Preparing Idle Animation
-    func loadIdleAnimation() -> SKAction {
+    private func loadIdleAnimation() -> SKAction {
         var idleTextures: [SKTexture] = []
         
         for i in 1 ... 5 {
@@ -43,7 +43,7 @@ class Player: GameObject {
     }
     
     //Prepare Eating Animation
-    func loadEatingAnimation() -> SKAction {
+    private func loadEatingAnimation() -> SKAction {
         var eatingTextures: [SKTexture] = []
         
         for i in 1 ... 5 {
@@ -55,7 +55,7 @@ class Player: GameObject {
         return eating
     }
     
-    func loadRunningAnimation() -> SKAction {
+    private func loadRunningAnimation() -> SKAction {
         var runningTextures: [SKTexture] = []
         
         for i in 1 ... 5 {
@@ -68,7 +68,7 @@ class Player: GameObject {
     }
     
     //Initialize the animations
-    func initializeAnimations() {
+    private func initializeAnimations() {
         self.eatState = self.loadEatingAnimation()
         self.idleState = self.loadIdleAnimation()
         self.runState = self.loadRunningAnimation()
