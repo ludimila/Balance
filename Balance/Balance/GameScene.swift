@@ -12,21 +12,43 @@ class GameScene: SKScene {
     
     var gameLayer: GameLayer! = nil
     
-    
-    
-    override func didMoveToView(view: SKView) {
+    override init(size: CGSize) {
+        super.init(size: size)
         
-        self.gameLayer = GameLayer(size: UIScreen.mainScreen().bounds.size)
+        //Initializing the layers
+        self.gameLayer = GameLayer(size: size)
+        
+        //Adding layers as child of GameScene
         self.addChild(self.gameLayer)
-        
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-   
+    
+//    override func didMoveToView(view: SKView) {
+//        /* Setup your scene here */
+//        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
+//        myLabel.text = "Hello, World!"
+//        myLabel.fontSize = 65
+//        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+//        
+//        self.addChild(myLabel)
+//    }
+    
+//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        self.gameLayer.touchesBegan(touches, withEvent: event)
+//    }
+    
+//    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        self.gameLayer.touchesEnded(touches, withEvent: event)
+//    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.gameLayer.touchesMoved(touches, withEvent: event)
+    }
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+//        self.gameLayer.update(currentTime)
     }
 }
