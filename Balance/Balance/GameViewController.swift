@@ -29,6 +29,8 @@ class GameViewController: UIViewController {
             skView.presentScene(scene)
         }
         
+        BackgroundMusic.sharedInstance.playMusic()
+        
     }
 
     override func didReceiveMemoryWarning() {
