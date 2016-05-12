@@ -78,8 +78,8 @@ class GameLayer: SKNode {
     
     
     func update(currentTime: CFTimeInterval) {
-        if self.player.position.x <= 0 {
-           self.player.position.x = self.screenSize.width - 5
+        if self.player.position.x <= CGFloat(0) {
+           self.player.position.x = CGFloat(self.screenSize.width - 50)
         } else if self.player.position.x >= self.screenSize.width - 5 {
             self.player.position.x = CGFloat(50)
         }
