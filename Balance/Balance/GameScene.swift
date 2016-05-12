@@ -14,35 +14,37 @@ class GameScene: SKScene {
     var time:Int = 3
     var ascending = false
     var actionTimeGame = SKAction()
+    let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
     
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.fontSize = 65
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        
+        timerLabel.fontSize = 65
+        timerLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
         let timer = SKAction.waitForDuration(1)
         self.actionTimeGame = SKAction.runBlock {
             if self.time <= 3 && self.ascending == false {
                 if self.time == 0 {
-                    myLabel.text = "GO!"
+                    self.timerLabel.text = "GO!"
+                    self.updateLabelPosition()
                     self.ascending = true
                     self.time += 1
                 }else {
-                    myLabel.text = "\(self.time)"
+                    self.timerLabel.text = "\(self.time)"
                     self.time -= 1
                 }
             }else {
-                myLabel.text = "\(self.time)"
+                self.timerLabel.text = "\(self.time)"
                 self.time += 1
             }
         }
         
         self.runAction(SKAction.repeatActionForever(SKAction.sequence([actionTimeGame, timer])),withKey: "timer")
         
-        self.addChild(myLabel)
+        self.addChild(timerLabel)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -69,7 +71,13 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
     }
     
-    func startGame() {
-        print("Funcionou startGame")
+    func updateLabelPosition() {
+        self.runAction(SKAction.runBlock({
+            self.timerLabel.position = CGPoint(x: self.timerLabel.position.x, y: CGRectGetMaxY(self.frame) - 160)
+        }))
+        
+        
     }
+    
+    
 }
