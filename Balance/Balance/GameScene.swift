@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CoreData
 
 class GameScene: SKScene {
     
@@ -44,6 +45,7 @@ class GameScene: SKScene {
         
         self.runAction(SKAction.repeatActionForever(SKAction.sequence([actionTimeGame, timer])),withKey: "timer")
         
+
         self.addChild(timerLabel)
     }
     
@@ -71,12 +73,49 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
     }
     
+
     func updateLabelPosition() {
         self.runAction(SKAction.runBlock({
             self.timerLabel.position = CGPoint(x: self.timerLabel.position.x, y: CGRectGetMaxY(self.frame) - 160)
         }))
+    }
+    
+
+    func saveHighscore() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
+        let managedContext = appDelegate.managedObjectContext
         
+        let entity =  NSEntityDescription.entityForName("HighScore", inManagedObjectContext:managedContext)
+        
+        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        
+        highScore.setValue(self.time, forKey: "highscore")
+        
+        do {
+            try managedContext.save()
+
+        }catch{
+            fatalError("failure to save highsore: \(error)")
+        }
+    }
+    
+    func getSavedHIghScore() {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName: "HighScore")
+        
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            
+            print(results)
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+
     }
     
     
