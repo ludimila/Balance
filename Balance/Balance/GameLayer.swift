@@ -11,7 +11,6 @@ import SpriteKit
 
 class GameLayer: SKNode {
     
-    
     var food: Food!
     var screenSize:CGSize!
     let foods = [(1,"batata"),
@@ -23,6 +22,7 @@ class GameLayer: SKNode {
     var player: Player!
     
     init(size: CGSize) {
+        self.screenSize = size
         super.init()
         
         self.player = Player(position: CGPointMake(size.width/2, size.height * 0.15))
@@ -38,129 +38,61 @@ class GameLayer: SKNode {
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
         self.runAction(repeatActionForever)
-        
-        self.screenSize = size
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //When touches began on screen the player move to the touch location
-//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        let touch = touches.first
-//        let location = (touch?.locationInNode(self))! as CGPoint
-//        var movementSpeed: NSTimeInterval!
-//        
-//        self.player.removeActionForKey("moveAction")
-//        
-//        //The movementSpeed Calc will be used to create a "constant" movement speed for any location.
-//        if ((self.player.position.x - location.x) > 0) {
-//            movementSpeed = (NSTimeInterval)(self.player.position.x - location.x) / 270
-//            
-//        } else {
-//            
-//            movementSpeed = (NSTimeInterval)(location.x - self.player.position.x) / 270
-//        }
-//        
-//        let movement = SKAction.moveToX(location.x, duration: movementSpeed)
-//        
-//        let actionBloc = SKAction.runBlock { 
-//            self.player.runAction(self.player.idle(), withKey: "animationAction")
-//        }
-//        
-//        let sequence = SKAction.sequence([movement, actionBloc])
-//        
-//        self.player.runAction(self.player.running(), withKey: "animationAction")
-//        
-//        self.player.runAction(sequence, withKey: "moveAction")
-//        
-//    }
-    
-//    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        let touch = touches.first
-//        let location = (touch?.locationInNode(self))! as CGPoint
-//        var movementSpeed: NSTimeInterval!
-//        
-//        self.player.removeActionForKey("moveAction")
-//        
-//        //The movementSpeed Calc will be used to create a "constant" movement speed for any location.
-//        if ((self.player.position.x - location.x) > 0) {
-//            movementSpeed = (NSTimeInterval)(self.player.position.x - location.x) / 270
-//            
-//        } else {
-//            
-//            movementSpeed = (NSTimeInterval)(location.x - self.player.position.x) / 270
-//        }
-//        
-//        let movement = SKAction.moveToX(location.x, duration: movementSpeed)
-//        
-//        let actionBloc = SKAction.runBlock {
-//            self.player.runAction(self.player.idle(), withKey: "animationAction")
-//        }
-//        
-//        let sequence = SKAction.sequence([movement, actionBloc])
-//        
-//        self.player.runAction(self.player.running(), withKey: "animationAction")
-//        
-//        self.player.runAction(sequence, withKey: "moveAction")
-//    }
-    
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first
-        let location = (touch?.locationInNode(self))! as CGPoint
+    override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
+        
         var movementSpeed: NSTimeInterval!
-        
-        self.player.removeActionForKey("moveAction")
-        
-        //The movementSpeed Calc will be used to create a "constant" movement speed for any location.
-        if ((self.player.position.x - location.x) > 0) {
-            movementSpeed = (NSTimeInterval)(self.player.position.x - location.x) / 270
+        var movement: SKAction!
+        for press in presses {
+            switch press.type {
+            case .LeftArrow:
+                movementSpeed = (NSTimeInterval)(self.player.position.x / 384)
+                movement = SKAction.moveToX(0, duration: movementSpeed)
+                print("left")
+                
+            case .RightArrow:
+                print("right")
+                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / 384)
+                movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
+            default:
+                movementSpeed = nil
+            }
             
-        } else {
+            let actionBloc = SKAction.runBlock({
+                self.player.runAction(self.player.idle(), withKey: "animationAction")
+            })
             
-            movementSpeed = (NSTimeInterval)(location.x - self.player.position.x) / 270
+            if movementSpeed != nil && movement != nil {
+                let sequence = SKAction.sequence([movement, actionBloc])
+                
+                self.player.runAction(self.player.running(), withKey: "animationAction")
+                self.player.runAction(sequence, withKey: "moveAction")
+            }
         }
-        
-        let movement = SKAction.moveToX(location.x, duration: movementSpeed)
-        
-        let actionBloc = SKAction.runBlock {
-            self.player.runAction(self.player.idle(), withKey: "animationAction")
-        }
-        
-        let sequence = SKAction.sequence([movement, actionBloc])
-        
-        self.player.runAction(self.player.running(), withKey: "animationAction")
-        
-        self.player.runAction(sequence, withKey: "moveAction")
     }
+    
     
     func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-        if player.position.x < -10 {
-            let moveRightWall = SKAction.moveToX(self.frame.width - 90, duration: 0)
-            self.player.runAction(moveRightWall)
-            
+        if self.player.position.x <= 0 {
+           self.player.position.x = self.screenSize.width - 5
+        } else if self.player.position.x >= self.screenSize.width - 5 {
+            self.player.position.x = CGFloat(50)
         }
-        else if (self.player.position.x > self.frame.width + 10) {
-            let moveLeftWall = SKAction.moveToX(90, duration: 0)
-            self.player.runAction(moveLeftWall)
-            
-        }
-    }
-
-
-    func putVariousFoodsInScren() {
-        
-        
-            let randomFood = Int(arc4random_uniform(5) + 1)
-            
-            self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
-            
-            self.addChild(self.food)
- 
     }
     
+    func putVariousFoodsInScren() {
+        
+        let randomFood = Int(arc4random_uniform(5) + 1)
+        
+        self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
+        
+        self.addChild(self.food)
+    }
     
     func  generateRandomPosition(size: CGSize) -> CGPoint {
         
@@ -171,7 +103,6 @@ class GameLayer: SKNode {
         return CGPointMake(CGFloat(randomWidth), maxHeight)
     }
     
-    
     func didBeginContact(contact: SKPhysicsContact)  {
         
         if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
@@ -180,5 +111,4 @@ class GameLayer: SKNode {
         }
     }
     
-    
-}//fim classe
+}

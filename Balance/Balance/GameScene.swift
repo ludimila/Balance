@@ -64,11 +64,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.gameLayer.touchesMoved(touches, withEvent: event)
+    override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
+        if let _ = self.gameLayer {
+            self.gameLayer.pressesBegan(presses, withEvent: event)
+        }
     }
+    
+//    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        self.gameLayer.touchesMoved(touches, withEvent: event)
+//    }
+    
     override func update(currentTime: CFTimeInterval) {
-
+        if let _ = self.gameLayer {
+            self.gameLayer.update(currentTime)
+        }
     }
     
     func didBeginContact(contact: SKPhysicsContact){
