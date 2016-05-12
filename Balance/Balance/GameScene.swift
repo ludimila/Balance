@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameLayer: GameLayer! = nil
     
@@ -18,7 +18,7 @@ class GameScene: SKScene {
         
         self.gameLayer = GameLayer(size: UIScreen.mainScreen().bounds.size)
         self.addChild(self.gameLayer)
-        
+        self.physicsWorld.contactDelegate = self
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -27,6 +27,11 @@ class GameScene: SKScene {
     }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+
+    }
+    
+    
+    func didBeginContact(contact: SKPhysicsContact){
+        self.gameLayer.didBeginContact(contact)
     }
 }

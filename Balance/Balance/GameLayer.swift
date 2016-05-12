@@ -100,5 +100,13 @@ class GameLayer: SKNode {
     }
     
     
+    func didBeginContact(contact: SKPhysicsContact)  {
+        
+        if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
+        
+            contact.bodyB.node?.removeFromParent()
+        }
+    }
+    
     
 }//fim classe
