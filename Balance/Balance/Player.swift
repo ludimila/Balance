@@ -18,7 +18,7 @@ class Player: GameObject {
     
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
-        super.init(texture: SKTexture(imageNamed: "idle1"), color: UIColor.clearColor(), size: SKTexture(imageNamed: "idle1").size())
+        super.init(texture: SKTexture(imageNamed: "magro_Idle1"), color: UIColor.clearColor(), size: CGSizeMake(50, 50))
         self.position = position
         self.physicsBody = self.generatePhysicsBody()
         self.initializeAnimations()
@@ -38,8 +38,8 @@ class Player: GameObject {
     private func loadIdleAnimation() -> SKAction {
         var idleTextures: [SKTexture] = []
         
-        for i in 1 ... 6 {
-            idleTextures.append(SKTexture(imageNamed: "idle\(i)"))
+        for i in 1 ... 2 {
+            idleTextures.append(SKTexture(imageNamed: "magro_Idle\(i)"))
         }
         
         let idle = SKAction.animateWithTextures(idleTextures, timePerFrame: 0.5)
@@ -51,8 +51,8 @@ class Player: GameObject {
     private func loadEatingAnimation() -> SKAction {
         var eatingTextures: [SKTexture] = []
         
-        for i in 1 ... 5 {
-            eatingTextures.append(SKTexture(imageNamed: "eat\(i)"))
+        for i in 1 ... 2 {
+            eatingTextures.append(SKTexture(imageNamed: "magro_eat\(i)"))
         }
         
         let eating = SKAction.animateWithTextures(eatingTextures, timePerFrame: 0.5)
@@ -63,8 +63,8 @@ class Player: GameObject {
     private func loadRunningAnimation() -> SKAction {
         var runningTextures: [SKTexture] = []
         
-        for i in 1 ... 5 {
-            runningTextures.append(SKTexture(imageNamed: "run\(i)"))
+        for i in 1 ... 2 {
+            runningTextures.append(SKTexture(imageNamed: "magro_Idle\(i)"))
         }
         
         let running = SKAction.animateWithTextures(runningTextures, timePerFrame: 0.5)

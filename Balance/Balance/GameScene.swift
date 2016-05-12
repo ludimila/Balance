@@ -12,6 +12,7 @@ import CoreData
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameLayer: GameLayer! = nil
+    var backgroundLayer: BackgroundLayer!
     
     var timer: NSTimer!
     var time:Int = 3
@@ -22,6 +23,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         super.init(size: size)
         self.physicsWorld.contactDelegate = self
+        self.backgroundLayer = BackgroundLayer(size: size)
+        self.addChild(self.backgroundLayer)
     }
     
     override func didMoveToView(view: SKView) {

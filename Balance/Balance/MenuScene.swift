@@ -11,6 +11,7 @@ import SpriteKit
 class MenuScene: SKScene {
     
     var playButton: SKNode! = nil
+    var backgroundLayer: BackgroundLayer!
     
     override func didMoveToView(view: SKView) {
         playButton = SKSpriteNode(color: SKColor.redColor(), size: CGSize(width: 100, height: 40))
@@ -26,6 +27,9 @@ class MenuScene: SKScene {
         playLabel.fontColor = UIColor.greenColor()
         
         self.addChild(playLabel)
+        
+        self.backgroundLayer = BackgroundLayer(size: size)
+        self.addChild(self.backgroundLayer)
         
     }
     

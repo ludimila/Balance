@@ -28,10 +28,9 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             BackgroundMusic.sharedInstance.playMusic()
-
+            
             skView.presentScene(scene)
         }
-        
         
     }
     
