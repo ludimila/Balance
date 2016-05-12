@@ -14,10 +14,11 @@ class Player: GameObject {
     private var idleState: SKAction!
     private var runState: SKAction!
     private var eatState: SKAction!
+    private var weight: Int = 0
     
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
-        super.init(texture: SKTexture(imageNamed: "idle"), color: UIColor.clearColor(), size: SKTexture(imageNamed: "idle").size())
+        super.init(texture: SKTexture(imageNamed: "idle1"), color: UIColor.clearColor(), size: SKTexture(imageNamed: "idle1").size())
         self.position = position
         self.physicsBody = self.generatePhysicsBody()
         self.initializeAnimations()
@@ -27,13 +28,17 @@ class Player: GameObject {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func changeWeight(weight: Int) {
+        self.weight += weight
+    }
+    
     //MARK: Animations
     
     //Preparing Idle Animation
     private func loadIdleAnimation() -> SKAction {
         var idleTextures: [SKTexture] = []
         
-        for i in 1 ... 5 {
+        for i in 1 ... 6 {
             idleTextures.append(SKTexture(imageNamed: "idle\(i)"))
         }
         
@@ -47,7 +52,7 @@ class Player: GameObject {
         var eatingTextures: [SKTexture] = []
         
         for i in 1 ... 5 {
-            eatingTextures.append(SKTexture(imageNamed: "eating\(i)"))
+            eatingTextures.append(SKTexture(imageNamed: "eat\(i)"))
         }
         
         let eating = SKAction.animateWithTextures(eatingTextures, timePerFrame: 0.5)
@@ -59,7 +64,7 @@ class Player: GameObject {
         var runningTextures: [SKTexture] = []
         
         for i in 1 ... 5 {
-            runningTextures.append(SKTexture(imageNamed: "running\(i)"))
+            runningTextures.append(SKTexture(imageNamed: "run\(i)"))
         }
         
         let running = SKAction.animateWithTextures(runningTextures, timePerFrame: 0.5)
