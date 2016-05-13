@@ -14,11 +14,13 @@ class Player: GameObject {
     private var idleState: SKAction!
     private var runState: SKAction!
     private var eatState: SKAction!
-    private var weight: Int = 0
+    private var weight: Int = 4
+    private var silhuet: String!
     
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
-        super.init(texture: SKTexture(imageNamed: "magro_Idle1"), color: UIColor.clearColor(), size: CGSizeMake(50, 50))
+        self.silhuet = "normal"
+        super.init(texture: SKTexture(imageNamed: "normal_Idle1"), color: UIColor.clearColor(), size: CGSizeMake(50, 50))
         self.position = position
         self.physicsBody = self.generatePhysicsBody()
         self.initializeAnimations()
@@ -28,18 +30,31 @@ class Player: GameObject {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeWeight(weight: Int) {
+    func changeWeight(weight: Int){
         self.weight += weight
+        if weight < 4 {
+            silhuet = "magro"
+        } else if weight >= 4 && weight < 7 {
+            silhuet = "normal"
+        }
+        else if weight > 7 {
+            silhuet = "gordo"
+        }
+        
+        print(silhuet)
+        
+        self.initializeAnimations()
     }
     
     //MARK: Animations
     
     //Preparing Idle Animation
     private func loadIdleAnimation() -> SKAction {
+        let silhuet = self.silhuet
         var idleTextures: [SKTexture] = []
         
         for i in 1 ... 2 {
-            idleTextures.append(SKTexture(imageNamed: "magro_Idle\(i)"))
+            idleTextures.append(SKTexture(imageNamed: "\(silhuet)_Idle\(i)"))
         }
         
         let idle = SKAction.animateWithTextures(idleTextures, timePerFrame: 0.5)
@@ -49,10 +64,11 @@ class Player: GameObject {
     
     //Prepare Eating Animation
     private func loadEatingAnimation() -> SKAction {
+        let silhuet = self.silhuet
         var eatingTextures: [SKTexture] = []
         
         for i in 1 ... 2 {
-            eatingTextures.append(SKTexture(imageNamed: "magro_eat\(i)"))
+            eatingTextures.append(SKTexture(imageNamed: "\(silhuet)_eat\(i)"))
         }
         
         let eating = SKAction.animateWithTextures(eatingTextures, timePerFrame: 0.05)
@@ -61,10 +77,11 @@ class Player: GameObject {
     }
     
     private func loadRunningAnimation() -> SKAction {
+        let silhuet = self.silhuet
         var runningTextures: [SKTexture] = []
         
         for i in 1 ... 2 {
-            runningTextures.append(SKTexture(imageNamed: "magro_Idle\(i)"))
+            runningTextures.append(SKTexture(imageNamed: "\(silhuet)_Idle\(i)"))
         }
         
         let running = SKAction.animateWithTextures(runningTextures, timePerFrame: 0.5)

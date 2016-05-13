@@ -33,7 +33,7 @@ class GameLayer: SKNode {
         
         
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
-        let wait = SKAction.waitForDuration(0.5, withRange: 0.1)
+        let wait = SKAction.waitForDuration(0.1, withRange: 0.1)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
@@ -106,7 +106,9 @@ class GameLayer: SKNode {
     func didBeginContact(contact: SKPhysicsContact)  {
         
         if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
-            
+            let weight = (contact.bodyB.node as! Food).weight
+            self.player.changeWeight(weight)
+            print(weight)
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
                 (contact.bodyA.node as! Player).idle()
