@@ -14,10 +14,8 @@ class GameLayer: SKNode {
     var food: Food!
     var screenSize:CGSize!
     let foods = [(1,"batata"),
-                 (2,"sorvete"),
-                 (3,"algodao"),
-                 (-1,"batata"),
-                 (-2,"algodao"),
+                 (3,"sorvete"),
+                 (-1,"algodao"),
                  (-3,"Spaceship")]
     var player: Player!
     
@@ -53,10 +51,8 @@ class GameLayer: SKNode {
             case .LeftArrow:
                 movementSpeed = (NSTimeInterval)(self.player.position.x / 384)
                 movement = SKAction.moveToX(0, duration: movementSpeed)
-                print("left")
                 
             case .RightArrow:
-                print("right")
                 movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / 384)
                 movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
             default:
@@ -87,7 +83,7 @@ class GameLayer: SKNode {
     
     func putVariousFoodsInScren() {
         
-        let randomFood = Int(arc4random_uniform(5) + 1)
+        let randomFood = Int(arc4random_uniform(3) + 1)
         
         self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
         
@@ -107,8 +103,8 @@ class GameLayer: SKNode {
         
         if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
             let weight = (contact.bodyB.node as! Food).weight
-            self.player.changeWeight(weight)
-            print(weight)
+            let nameFood = (contact.bodyB.node as! Food).imageName
+            self.player.changeWeight(weight,name: nameFood)
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
                 (contact.bodyA.node as! Player).idle()
@@ -116,5 +112,6 @@ class GameLayer: SKNode {
             
         }
     }
+    
     
 }

@@ -13,6 +13,7 @@ class Player: GameObject {
     
     private var idleState: SKAction!
     private var runState: SKAction!
+    private var fatState: SKAction!
     private var eatState: SKAction!
     private var weight: Int = 4
     private var silhuet: String!
@@ -30,18 +31,28 @@ class Player: GameObject {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeWeight(weight: Int){
-        self.weight += weight
-        if weight < 4 {
-            silhuet = "magro"
-        } else if weight >= 4 && weight < 7 {
+    func changeWeight(weight: Int, name: String){
+        
+        self.weight = weight + self.weight
+        print(self.weight)
+
+        
+        if self.weight < 4  {
+            self.silhuet = "magro"
+            print("Entrei no if do 4")
+            
+        } else if (self.weight >= 5 && self.weight < 7) {
             silhuet = "normal"
+            print("Entrei no if do 5/7")
+
         }
-        else if weight > 7 {
-            silhuet = "gordo"
+        else if self.weight > 7 {
+            self.silhuet = "gordo"
+            print("Entrei no if do >7")
+            self.fatState = self.fatguy()
+
         }
         
-        print(silhuet)
         
         self.initializeAnimations()
     }
@@ -88,6 +99,24 @@ class Player: GameObject {
         
         return running
     }
+    
+    
+    //fatanimation
+    
+    private func fatguy()-> SKAction{
+        let silhuet = self.silhuet
+        var fatTextures: [SKTexture] = []
+        
+        for i in 1 ... 2 {
+            fatTextures.append(SKTexture(imageNamed: "\(silhuet)_getGordo\(i)"))
+        }
+        
+        let fating = SKAction.animateWithTextures(fatTextures, timePerFrame: 0.5)
+        
+        return fating
+        
+    }
+    
     
     //Initialize the animations
     private func initializeAnimations() {
