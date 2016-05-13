@@ -14,6 +14,7 @@ class Player: GameObject {
     private var idleState: SKAction!
     private var runState: SKAction!
     private var fatState: SKAction!
+    private var slimState: SKAction!
     private var eatState: SKAction!
     private var weight: Int = 4
     private var silhuet: String!
@@ -36,17 +37,17 @@ class Player: GameObject {
         self.weight = weight + self.weight
         
         if self.weight < 4  {
+            
             self.silhuet = "magro"
-            print("Entrei no if do 4")
+            self.slimState = self.slimGuy()
+            print(self.weight)
             
         } else if (self.weight >= 5 && self.weight < 7) {
             silhuet = "normal"
-            print("Entrei no if do 5/7")
 
         }
         else if self.weight > 7 {
             self.silhuet = "gordo"
-            print("Entrei no if do >7")
             self.fatState = self.fatguy()
 
         }
@@ -111,6 +112,22 @@ class Player: GameObject {
         let fating = SKAction.animateWithTextures(fatTextures, timePerFrame: 0.5)
         
         return fating
+        
+    }
+    
+    
+    private func slimGuy()-> SKAction{
+        let silhuet = self.silhuet
+        
+        var slimTextures: [SKTexture] = []
+        
+        for i in 1 ... 2 {
+            slimTextures.append(SKTexture(imageNamed: "\(silhuet)_Idle\(i)"))
+        }
+        
+        let slim = SKAction.animateWithTextures(slimTextures, timePerFrame: 0.5)
+        
+        return slim
         
     }
     

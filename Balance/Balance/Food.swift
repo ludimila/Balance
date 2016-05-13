@@ -16,11 +16,10 @@ class Food: GameObject {
     
     init(position: CGPoint, weight: Int, imageName: String) {
         
-        super.init(texture: SKTexture(imageNamed: imageName), color: UIColor.clearColor(), size: SKTexture(imageNamed: "sorvete").size())
+        super.init(texture: SKTexture(imageNamed: imageName), color: UIColor.clearColor(), size: CGSizeMake(100, 100))
     
         self.weight = weight
         self.position = position
-        self.setScale(2)
         self.physicsBody = self.generatePhysicsBody()
         
     }
