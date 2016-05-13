@@ -34,8 +34,6 @@ class Player: GameObject {
     func changeWeight(weight: Int, name: String){
         
         self.weight = weight + self.weight
-        print(self.weight)
-
         
         if self.weight < 4  {
             self.silhuet = "magro"
@@ -52,7 +50,6 @@ class Player: GameObject {
             self.fatState = self.fatguy()
 
         }
-        
         
         self.initializeAnimations()
     }
