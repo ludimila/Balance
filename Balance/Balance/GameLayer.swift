@@ -106,8 +106,12 @@ class GameLayer: SKNode {
     func didBeginContact(contact: SKPhysicsContact)  {
         
         if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
-        
+            
             contact.bodyB.node?.removeFromParent()
+            contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
+                (contact.bodyA.node as! Player).idle()
+            })
+            
         }
     }
     

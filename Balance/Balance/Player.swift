@@ -55,7 +55,7 @@ class Player: GameObject {
             eatingTextures.append(SKTexture(imageNamed: "magro_eat\(i)"))
         }
         
-        let eating = SKAction.animateWithTextures(eatingTextures, timePerFrame: 0.5)
+        let eating = SKAction.animateWithTextures(eatingTextures, timePerFrame: 0.05)
         
         return eating
     }
