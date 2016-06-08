@@ -11,6 +11,8 @@ import SpriteKit
 
 class GameLayer: SKNode {
     
+    var foodRespawn = NSTimeInterval(2)
+    
     var food: Food!
     var screenSize:CGSize!
     let foods = [(1,"hamburguer"),
@@ -18,8 +20,10 @@ class GameLayer: SKNode {
                  (-1,"apple"),
                  (-3,"lettuce")]
     var player: Player!
+    var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
     
     init(size: CGSize) {
+        
         self.screenSize = size
         super.init()
         self.player = Player(position: CGPointMake(size.width/2, size.height * 0.15))
@@ -28,13 +32,17 @@ class GameLayer: SKNode {
         
         self.player.runAction(self.player.idle(), withKey: "animationAction")
         
-        
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
-        let wait = SKAction.waitForDuration(0.4, withRange: 2)
+        let wait = SKAction.waitForDuration(self.foodRespawn, withRange: 2)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
         self.runAction(repeatActionForever)
+        
+        self.weightLabel.fontSize = 65
+        self.weightLabel.position = CGPoint(x: 960, y: 540)
+        self.weightLabel.text = "\(self.player.getWeight())"
+        self.addChild(self.weightLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -109,6 +117,7 @@ class GameLayer: SKNode {
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
             self.player.changeWeight(weight,name: nameFood)
+            self.weightLabel.text = "\(self.player.getWeight())"
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
                 (contact.bodyA.node as! Player).idle()
