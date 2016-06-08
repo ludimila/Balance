@@ -11,6 +11,9 @@ import SpriteKit
 
 class GameLayer: SKNode {
     
+    //balança
+    
+    var seta = SKSpriteNode()
     
     //player movement
     var presses = Set<UIPress>()
@@ -39,6 +42,20 @@ class GameLayer: SKNode {
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
         self.runAction(repeatActionForever)
+    }
+    
+    
+    //balanca
+    
+    func balace(size: CGSize){
+        //balança
+        self.seta = SKSpriteNode.init(imageNamed: "seta")
+        self.seta.position = CGPointMake(size.width/2, size.height/2)
+        self.addChild(self.seta)
+        self.seta.anchorPoint = CGPointMake(0.5, 0)
+        
+        self.seta.zRotation = CGFloat(M_PI_4/4)
+
     }
     
     required init?(coder aDecoder: NSCoder) {
