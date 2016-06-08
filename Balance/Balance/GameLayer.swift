@@ -12,6 +12,10 @@ import SpriteKit
 class GameLayer: SKNode {
     
     
+    //balança
+    
+    var seta = SKSpriteNode()
+    
     //player movement
     var presses = Set<UIPress>()
     
@@ -29,9 +33,13 @@ class GameLayer: SKNode {
         self.player = Player(position: CGPointMake(size.width/2, size.height * 0.15))
         self.player.setScale(5.0)
         self.addChild(player)
-        
         self.player.runAction(self.player.idle(), withKey: "animationAction")
         
+        //balança
+        self.seta = SKSpriteNode.init(imageNamed: "seta")
+        self.seta.position = CGPointMake(size.width/2, size.height/2)
+        self.addChild(self.seta)
+        self.seta.anchorPoint = CGPointMake(0.5, 0)
         
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
         let wait = SKAction.waitForDuration(0.4, withRange: 2)
@@ -50,6 +58,7 @@ class GameLayer: SKNode {
         self.movePlayer(self.presses)
     }
     
+    
     //move o player pra direita ou pra esquerda quando toca no controle
     func movePlayer(presses: Set<UIPress>){
 
@@ -60,7 +69,6 @@ class GameLayer: SKNode {
             case .LeftArrow:
                 movementSpeed = (NSTimeInterval)(self.player.position.x / 384)
                 movement = SKAction.moveToX(0, duration: movementSpeed)
-                
             case .RightArrow:
                 movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / 384)
                 movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
@@ -85,6 +93,8 @@ class GameLayer: SKNode {
     
     func update(currentTime: CFTimeInterval) {
        
+        self.seta.zRotation = CGFloat(M_PI_4/4)
+
         self.monitoringPlayerPosition()
         
         if self.food.position.y > self.screenSize.height {
