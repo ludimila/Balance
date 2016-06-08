@@ -11,7 +11,8 @@ import SpriteKit
 
 class GameLayer: SKNode {
     
-    var foodRespawn = NSTimeInterval(2)
+    var foodSpawn = NSTimeInterval(1)
+    var playerSpeedInPixelsPerSecond = CGFloat(640)
     
     var food: Food!
     var screenSize:CGSize!
@@ -33,7 +34,7 @@ class GameLayer: SKNode {
         self.player.runAction(self.player.idle(), withKey: "animationAction")
         
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
-        let wait = SKAction.waitForDuration(self.foodRespawn, withRange: 2)
+        let wait = SKAction.waitForDuration(self.foodSpawn, withRange: 2)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
@@ -51,16 +52,17 @@ class GameLayer: SKNode {
     
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
         
+        
         var movementSpeed: NSTimeInterval!
         var movement: SKAction!
         for press in presses {
             switch press.type {
             case .LeftArrow:
-                movementSpeed = (NSTimeInterval)(self.player.position.x / 384)
+                movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
                 movement = SKAction.moveToX(0, duration: movementSpeed)
                 
             case .RightArrow:
-                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / 384)
+                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
                 movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
             default:
                 movementSpeed = nil
