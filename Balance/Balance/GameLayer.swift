@@ -14,6 +14,9 @@ class GameLayer: SKNode {
     var foodSpawn = NSTimeInterval(1)
     var playerSpeedInPixelsPerSecond = CGFloat(640)
     
+    //player movement
+    var presses = Set<UIPress>()
+    
     var food: Food!
     var screenSize:CGSize!
     let foods = [(1,"hamburguer"),
@@ -51,8 +54,13 @@ class GameLayer: SKNode {
     }
     
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
-        
-        
+        self.presses = presses
+        self.movePlayer(self.presses)
+    }
+    
+    //move o player pra direita ou pra esquerda quando toca no controle
+    func movePlayer(presses: Set<UIPress>){
+
         var movementSpeed: NSTimeInterval!
         var movement: SKAction!
         for press in presses {
@@ -83,14 +91,27 @@ class GameLayer: SKNode {
     
     
     func update(currentTime: CFTimeInterval) {
-        if self.player.position.x <= CGFloat(0) {
-           self.player.position.x = CGFloat(self.screenSize.width - 50)
-        } else if self.player.position.x >= self.screenSize.width - 5 {
-            self.player.position.x = CGFloat(50)
-        }
+       
+        self.monitoringPlayerPosition()
         
         if self.food.position.y > self.screenSize.height {
             self.food.removeFromParent()
+        }
+    }
+    
+    
+    //monitora onde o player tá, teletransporta e continua andandado
+    func monitoringPlayerPosition() {
+
+        if self.player.position.x <= CGFloat(0) {
+            self.player.position.x = CGFloat(self.screenSize.width - 50)
+            self.movePlayer(self.presses)
+
+        } else if self.player.position.x >= self.screenSize.width - 5 {
+            self.player.position.x = CGFloat(50)
+            
+            //chamar teletransporte andando
+            self.movePlayer(self.presses)
         }
     }
     
@@ -124,9 +145,6 @@ class GameLayer: SKNode {
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
                 (contact.bodyA.node as! Player).idle()
             })
-            
         }
     }
-    
-    
 }

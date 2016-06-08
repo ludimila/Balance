@@ -44,7 +44,6 @@ class Player: GameObject {
             
             self.silhuet = "magro"
             self.slimState = self.slimGuy()
-            print(self.weight)
             
         } else if (self.weight >= 4 && self.weight < 7) {
             silhuet = "normal"
