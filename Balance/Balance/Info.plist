@@ -28,5 +28,7 @@
 	<array>
 		<string>arm64</string>
 	</array>
+	<key>PrefersOpenGL</key>
+	<true/>
 </dict>
 </plist>

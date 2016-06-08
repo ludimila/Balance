@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
             
             skView.showsFPS = true
             skView.showsNodeCount = true
-            
+            skView.showsPhysics = true
             skView.ignoresSiblingOrder = true
             
             scene.scaleMode = .AspectFill
@@ -35,6 +35,11 @@ class GameViewController: UIViewController {
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
         super.pressesBegan(presses, withEvent: event)
         self.skView.scene?.pressesBegan(presses, withEvent: event)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        print(#function)
+        
     }
     
 }

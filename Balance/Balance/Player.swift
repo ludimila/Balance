@@ -162,7 +162,7 @@ class Player: GameObject {
     //MARK: Object Physics
     override func generatePhysicsBody() -> SKPhysicsBody {
         
-        let physicsBody = SKPhysicsBody.init(rectangleOfSize: self.size)
+        let physicsBody = SKPhysicsBody.init(circleOfRadius: self.size.width/3)
         physicsBody.categoryBitMask = PhysicsCategory.Player
         physicsBody.contactTestBitMask = PhysicsCategory.Food
         physicsBody.mass = 20000

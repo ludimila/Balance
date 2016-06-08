@@ -30,7 +30,7 @@ class GameLayer: SKNode {
         
         
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
-        let wait = SKAction.waitForDuration(0.1, withRange: 2)
+        let wait = SKAction.waitForDuration(0.4, withRange: 2)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
@@ -78,6 +78,10 @@ class GameLayer: SKNode {
         } else if self.player.position.x >= self.screenSize.width - 5 {
             self.player.position.x = CGFloat(50)
         }
+        
+        if self.food.position.y > self.screenSize.height {
+            self.food.removeFromParent()
+        }
     }
     
     func putVariousFoodsInScren() {
@@ -85,8 +89,9 @@ class GameLayer: SKNode {
         let randomFood = Int(arc4random_uniform(4)+1)-1
         
         self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
-        self.food.setScale(1.5)
+        self.food.setScale(0.8)
         self.addChild(self.food)
+        self.food.removeFoodAfterPeriod()
     }
     
     func  generateRandomPosition(size: CGSize) -> CGPoint {
