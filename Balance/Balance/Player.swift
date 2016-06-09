@@ -16,6 +16,8 @@ class Player: GameObject {
     private var fatState: SKAction!
     private var slimState: SKAction!
     private var eatState: SKAction!
+    private var deathSkullState: SKAction!
+    private var deathExplosionState: SKAction!
     private var weight: Int = 4
     private var silhuet: String!
     
@@ -36,7 +38,12 @@ class Player: GameObject {
         
         self.weight = weight + self.weight
         
-        if self.weight < 4  {
+        if self.weight <= 0 {
+            
+            self.silhuet = ""
+            self.deathSkullState = self.deathSkullGuy()
+            
+        }else if self.weight < 4 && self.weight > 0 {
             
             self.silhuet = "magro"
             self.slimState = self.slimGuy()
@@ -45,10 +52,14 @@ class Player: GameObject {
             silhuet = "normal"
 
         }
-        else if self.weight > 7 {
+        else if self.weight > 7 && self.weight < 11{
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
 
+        } else if self.weight > 10 {
+            
+            self.silhuet = ""
+            self.deathExplosionState = self.deathExplosionGuy()
         }
         
         self.initializeAnimations()
@@ -127,6 +138,36 @@ class Player: GameObject {
         let slim = SKAction.animateWithTextures(slimTextures, timePerFrame: 0.5)
         
         return slim
+        
+    }
+    
+    private func deathSkullGuy()-> SKAction{
+        let silhuet = self.silhuet
+        
+        var deathSkullTextures: [SKTexture] = []
+        
+        for i in 1 ... 2 {
+            deathSkullTextures.append(SKTexture(imageNamed: "\(silhuet)Skull\(i)"))
+        }
+        
+        let skull = SKAction.animateWithTextures(deathSkullTextures, timePerFrame: 0.5)
+        
+        return skull
+        
+    }
+    
+    private func deathExplosionGuy()-> SKAction{
+        let silhuet = self.silhuet
+        
+        var deathExplosionTextures: [SKTexture] = []
+        
+        for i in 1 ... 2 {
+            deathExplosionTextures.append(SKTexture(imageNamed: "\(silhuet)Explosion\(i)"))
+        }
+        
+        let explosion = SKAction.animateWithTextures(deathExplosionTextures, timePerFrame: 0.5)
+        
+        return explosion
         
     }
     

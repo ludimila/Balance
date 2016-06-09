@@ -135,12 +135,33 @@ class GameLayer: SKNode {
         if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
-            self.player.changeWeight(weight,name: nameFood)
-            contact.bodyB.node?.removeFromParent()
-            contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
-                (contact.bodyA.node as! Player).idle()
-            })
             
+            let weightPlayer = Int()
+//            weight = player.getWeight()
+            
+            if weightPlayer < 1 || weightPlayer > 10 {
+                //gameover
+                //stop em todas as animations (skactions)
+                self.removeAllActions()
+                //remover todas as sprites
+                self.removeAllChildren()
+                //salvar a pontuacao no banco (if best score)
+                
+                //se continuar a instancia voltar elas pro estado inicial(zerar o peso do guaxinim, zerar o tempo da musica, zerar a pontuacao, zerar o tempo)
+                
+                //run na tela de game over
+                let loseAction = SKAction.runBlock(){
+                    let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+                    let gameOverScene = GameOverScene(size: self.screenSize, over: false)
+                    self.view?.presentScene(gameOverScene, transition: reveal)
+                }
+            }else {
+                self.player.changeWeight(weight,name: nameFood)
+                contact.bodyB.node?.removeFromParent()
+                contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
+                    (contact.bodyA.node as! Player).idle()
+                })
+            }
         }
     }
     
