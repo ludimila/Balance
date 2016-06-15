@@ -21,8 +21,11 @@ class Player: GameObject {
     private var weight: Int = 4
     private var silhuet: String!
     
+    var isDead: Bool!
+    
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
+        isDead = false
         self.silhuet = "normal"
         super.init(texture: SKTexture(imageNamed: "normal_Idle1"), color: UIColor.clearColor(), size: CGSizeMake(50, 50))
         self.position = position
@@ -34,32 +37,38 @@ class Player: GameObject {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func getWeight() -> Int {
+        return self.weight
+    }
+    
     func changeWeight(weight: Int, name: String){
         
         self.weight = weight + self.weight
         
         if self.weight <= 0 {
             
-            self.silhuet = ""
+            self.silhuet = "esqueleto"
             self.deathSkullState = self.deathSkullGuy()
+            isDead = true
             
         }else if self.weight < 4 && self.weight > 0 {
             
             self.silhuet = "magro"
             self.slimState = self.slimGuy()
             
-        } else if (self.weight >= 5 && self.weight < 7) {
+        } else if (self.weight >= 4 && self.weight < 8) {
             silhuet = "normal"
-
         }
-        else if self.weight > 7 && self.weight < 11{
+        else if self.weight > 7 && self.weight <= 10{
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
 
         } else if self.weight > 10 {
             
-            self.silhuet = ""
+           
+            self.silhuet = "explosao"
             self.deathExplosionState = self.deathExplosionGuy()
+             isDead = true
         }
         
         self.initializeAnimations()

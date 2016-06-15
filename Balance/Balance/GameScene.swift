@@ -13,6 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameLayer: GameLayer! = nil
     var backgroundLayer: BackgroundLayer!
+    var worldGravity = CGFloat(-10.0)
     
     var timer: NSTimer!
     var time:Int = 3
@@ -30,7 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        
+        self.physicsWorld.gravity = CGVectorMake(0.0, self.worldGravity)
         timerLabel.fontSize = 65
         timerLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
