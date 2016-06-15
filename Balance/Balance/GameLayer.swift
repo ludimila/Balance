@@ -63,7 +63,7 @@ class GameLayer: SKNode {
     //faz comida cair
     func dropFood() {
         
-        let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
+        let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScreen), onTarget: self)
         let wait = SKAction.waitForDuration(self.foodSpawn, withRange: 2)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
@@ -113,8 +113,6 @@ class GameLayer: SKNode {
     
     
     func update(currentTime: CFTimeInterval) {
-       
-//        self.seta.zRotation = CGFloat(M_PI_4/4)
 
         self.monitoringPlayerPosition()
         
@@ -139,14 +137,15 @@ class GameLayer: SKNode {
         }
     }
     
-    func putVariousFoodsInScren() {
+    func putVariousFoodsInScreen() {
         
         let randomFood = Int(arc4random_uniform(4)+1)-1
         
         self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
         self.food.imageName = self.foods[randomFood].1
-        self.food.setScale(0.8)
+        self.food.setScale(2)
         self.addChild(self.food)
+        self.food.reduceFoodScale()
         self.food.removeFoodAfterPeriod()
     }
     

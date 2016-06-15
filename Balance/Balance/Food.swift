@@ -50,4 +50,9 @@ class Food: GameObject {
             self.removeFromParent()
         }
     }
+    
+    func reduceFoodScale() {
+        let scaleAction = SKAction.scaleTo(0.8, duration: 4)
+        self.runAction(scaleAction)
+    }
 }
