@@ -32,6 +32,10 @@ class Player: GameObject {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func getWeight() -> Int {
+        return self.weight
+    }
+    
     func changeWeight(weight: Int, name: String){
         
         self.weight = weight + self.weight
@@ -41,14 +45,12 @@ class Player: GameObject {
             self.silhuet = "magro"
             self.slimState = self.slimGuy()
             
-        } else if (self.weight >= 5 && self.weight < 7) {
+        } else if (self.weight >= 4 && self.weight < 7) {
             silhuet = "normal"
-
         }
-        else if self.weight > 7 {
+        else if self.weight >= 7 {
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
-
         }
         
         self.initializeAnimations()

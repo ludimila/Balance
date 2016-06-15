@@ -45,15 +45,9 @@ class Food: GameObject {
     }
     
     func removeFoodAfterPeriod (){
-        
         let wait = SKAction.waitForDuration(4)
-        
         self.runAction(wait) { 
             self.removeFromParent()
         }
-        
     }
-
-    
-    
-}//fim classe
+}

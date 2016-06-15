@@ -14,6 +14,8 @@ class GameLayer: SKNode {
     //balança
     
     var seta = SKSpriteNode()
+    var foodSpawn = NSTimeInterval(1)
+    var playerSpeedInPixelsPerSecond = CGFloat(640)
     
     //player movement
     var presses = Set<UIPress>()
@@ -24,9 +26,12 @@ class GameLayer: SKNode {
                  (3,"bacon"),
                  (-1,"apple"),
                  (-3,"lettuce")]
+    
     var player: Player!
+    var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
     
     init(size: CGSize) {
+        
         self.screenSize = size
         super.init()
         self.player = Player(position: CGPointMake(size.width/2, size.height * 0.15))
@@ -35,13 +40,19 @@ class GameLayer: SKNode {
         
         self.player.runAction(self.player.idle(), withKey: "animationAction")
         
-        
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
-        let wait = SKAction.waitForDuration(0.4, withRange: 2)
+        let wait = SKAction.waitForDuration(self.foodSpawn, withRange: 2)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
         self.runAction(repeatActionForever)
+        
+        self.weightLabel.fontSize = 65
+        self.weightLabel.position = CGPoint(x: 960, y: 540)
+        self.weightLabel.text = "\(self.player.getWeight())"
+        self.addChild(self.weightLabel)
+        
+        self.balace(size)
     }
     
     
@@ -75,11 +86,11 @@ class GameLayer: SKNode {
         for press in presses {
             switch press.type {
             case .LeftArrow:
-                movementSpeed = (NSTimeInterval)(self.player.position.x / 384)
+                movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
                 movement = SKAction.moveToX(0, duration: movementSpeed)
                 
             case .RightArrow:
-                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / 384)
+                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
                 movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
             default:
                 movementSpeed = nil
@@ -96,7 +107,6 @@ class GameLayer: SKNode {
                 self.player.runAction(sequence, withKey: "moveAction")
             }
         }
-
     }
     
     
@@ -108,7 +118,6 @@ class GameLayer: SKNode {
             self.food.removeFromParent()
         }
     }
-    
     
     
     //monitora onde o player tá, teletransporta e continua andandado
@@ -125,8 +134,6 @@ class GameLayer: SKNode {
             self.movePlayer(self.presses)
         }
     }
-    
-    
     
     func putVariousFoodsInScren() {
         
@@ -153,13 +160,11 @@ class GameLayer: SKNode {
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
             self.player.changeWeight(weight,name: nameFood)
+            self.weightLabel.text = "\(self.player.getWeight())"
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
                 (contact.bodyA.node as! Player).idle()
             })
-            
         }
     }
-    
-    
 }
