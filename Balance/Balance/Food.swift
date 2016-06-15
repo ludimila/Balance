@@ -12,7 +12,7 @@ import SpriteKit
 class Food: GameObject {
     
     var weight: Int = 0
-    var imageName: String = "Spaceship"
+    var imageName: String = ""
     
     init(position: CGPoint, weight: Int, imageName: String) {
         

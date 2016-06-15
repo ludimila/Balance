@@ -12,20 +12,20 @@ import SpriteKit
 class GameLayer: SKNode {
     
     //balança
-    
     var seta = SKSpriteNode()
     var foodSpawn = NSTimeInterval(1)
     var playerSpeedInPixelsPerSecond = CGFloat(640)
+    var posicao: CGFloat  = 0.0
     
     //player movement
     var presses = Set<UIPress>()
     
     var food: Food!
     var screenSize:CGSize!
-    let foods = [(1,"hamburguer"),
-                 (3,"bacon"),
+    let foods = [(2,"hamburguer"),
+                 (1,"bacon"),
                  (-1,"apple"),
-                 (-3,"lettuce")]
+                 (-2,"lettuce")]
     
     var player: Player!
     var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
@@ -34,11 +34,34 @@ class GameLayer: SKNode {
         
         self.screenSize = size
         super.init()
-        self.player = Player(position: CGPointMake(size.width/2, size.height * 0.15))
+        
+        self.addPlayer()
+        self.dropFood()
+        self.addBalanca()
+
+        self.weightLabel.fontSize = 65
+        self.weightLabel.position = CGPoint(x: 960, y: 540)
+        self.weightLabel.text = "\(self.player.getWeight())"
+        self.addChild(self.weightLabel)
+        
+        
+    }
+    
+    
+    
+    //adiciona Player
+    
+    func addPlayer(){
+    
+        self.player = Player(position: CGPointMake(self.screenSize.width/2, self.screenSize .height * 0.15))
         self.player.setScale(5.0)
         self.addChild(player)
-        
         self.player.runAction(self.player.idle(), withKey: "animationAction")
+    }
+    
+    
+    //faz comida cair
+    func dropFood() {
         
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
         let wait = SKAction.waitForDuration(self.foodSpawn, withRange: 2)
@@ -46,29 +69,8 @@ class GameLayer: SKNode {
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
         self.runAction(repeatActionForever)
-        
-        self.weightLabel.fontSize = 65
-        self.weightLabel.position = CGPoint(x: 960, y: 540)
-        self.weightLabel.text = "\(self.player.getWeight())"
-        self.addChild(self.weightLabel)
-        
-        self.balace(size)
     }
-    
-    
-    //balanca
-    
-    func balace(size: CGSize){
-        //balança
-        self.seta = SKSpriteNode.init(imageNamed: "seta")
-        self.seta.position = CGPointMake(size.width/2, size.height/2)
-        self.addChild(self.seta)
-        self.seta.anchorPoint = CGPointMake(0.5, 0)
-        
-        self.seta.zRotation = CGFloat(M_PI_4/4)
 
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -77,6 +79,7 @@ class GameLayer: SKNode {
         self.presses = presses
         self.movePlayer(self.presses)
     }
+    
     
     //move o player pra direita ou pra esquerda quando toca no controle
     func movePlayer(presses: Set<UIPress>){
@@ -88,7 +91,6 @@ class GameLayer: SKNode {
             case .LeftArrow:
                 movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
                 movement = SKAction.moveToX(0, duration: movementSpeed)
-                
             case .RightArrow:
                 movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
                 movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
@@ -112,6 +114,8 @@ class GameLayer: SKNode {
     
     func update(currentTime: CFTimeInterval) {
        
+//        self.seta.zRotation = CGFloat(M_PI_4/4)
+
         self.monitoringPlayerPosition()
         
         if self.food.position.y > self.screenSize.height {
@@ -140,6 +144,7 @@ class GameLayer: SKNode {
         let randomFood = Int(arc4random_uniform(4)+1)-1
         
         self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
+        self.food.imageName = self.foods[randomFood].1
         self.food.setScale(0.8)
         self.addChild(self.food)
         self.food.removeFoodAfterPeriod()
@@ -159,7 +164,10 @@ class GameLayer: SKNode {
         if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
-            self.player.changeWeight(weight,name: nameFood)
+            
+            self.movingBalance(nameFood)
+            self.player.changeWeight(weight)
+            
             self.weightLabel.text = "\(self.player.getWeight())"
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
@@ -167,4 +175,41 @@ class GameLayer: SKNode {
             })
         }
     }
+    
+    
+    //balanca
+    
+    func addBalanca(){
+        //balança
+        self.seta = SKSpriteNode.init(imageNamed: "seta")
+        self.seta.position = CGPointMake(self.screenSize.width/2, self.screenSize.height/2)
+        self.seta.anchorPoint = CGPointMake(0.5, 0.0)
+        self.addChild(self.seta)
+    }
+    
+    
+    func movingBalance(nameFood: String){
+        
+        //transformar em constantes
+        let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
+        let rotateRight = CGFloat(M_PI_4*(0.5/10))
+        
+        
+        switch nameFood {
+        case "bacon":
+            self.seta.zRotation = rotateRight+CGFloat(self.posicao)
+        case "hamburguer":
+            self.seta.zRotation = rotateRight+CGFloat(self.posicao)
+        case "apple":
+            self.seta.zRotation = rotateLeft+CGFloat(self.posicao)
+        case "lettuce":
+            self.seta.zRotation = rotateLeft+CGFloat(self.posicao)
+
+        default:
+            print("")
+        }
+        
+    }
+    
+    
 }
