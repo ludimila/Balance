@@ -35,19 +35,32 @@ class GameLayer: SKNode {
         self.addChild(player)
         self.player.runAction(self.player.idle(), withKey: "animationAction")
         
-        //balança
-        self.seta = SKSpriteNode.init(imageNamed: "seta")
-        self.seta.position = CGPointMake(size.width/2, size.height/2)
-        self.addChild(self.seta)
-        self.seta.anchorPoint = CGPointMake(0.5, 0)
-        
         let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
         let wait = SKAction.waitForDuration(0.4, withRange: 2)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
         self.runAction(repeatActionForever)
+        
+        self.balanca(size)
     }
+    
+    
+    
+    //balanca
+    
+    func balanca(size: CGSize){
+        //balança
+        self.seta = SKSpriteNode.init(imageNamed: "seta")
+        self.seta.position = CGPointMake(size.width/2, size.height/2)
+        self.addChild(self.seta)
+        self.seta.anchorPoint = CGPointMake(0.5, 0)
+        
+        self.seta.zRotation = CGFloat(M_PI_4/4)
+        
+    }
+
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
