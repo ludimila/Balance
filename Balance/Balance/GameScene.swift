@@ -13,7 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameLayer: GameLayer! = nil
     var backgroundLayer: BackgroundLayer!
-    var worldGravity = CGFloat(-10.0)
+    var worldGravity = CGFloat(-1.0)
     
     var timer: NSTimer!
     var time:Int = 3
@@ -92,39 +92,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }))
     }
     
-//    func saveHighscore() {
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        
-//        let managedContext = appDelegate.managedObjectContext
-//        
-//        let entity =  NSEntityDescription.entityForName("HighScore", inManagedObjectContext:managedContext)
-//        
-//        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-//        
-//        highScore.setValue(self.time, forKey: "highscore")
-//        
-//        do {
-//            try managedContext.save()
-//
-//        }catch{
-//            fatalError("failure to save highsore: \(error)")
-//        }
-//    }
-//    
-//    func getSavedHIghScore() {
-//        
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        
-//        let managedContext = appDelegate.managedObjectContext
-//        
-//        let fetchRequest = NSFetchRequest(entityName: "HighScore")
-//        
-//        do {
-//            let results = try managedContext.executeFetchRequest(fetchRequest)
-//            
-//            print(results)
-//        } catch let error as NSError {
-//            print("Could not fetch \(error), \(error.userInfo)")
-//        }
-//    }
+    func saveHighscore() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let entity =  NSEntityDescription.entityForName("HighScore", inManagedObjectContext:managedContext)
+        
+        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        
+        highScore.setValue(self.time, forKey: "highscore")
+        
+        do {
+            try managedContext.save()
+
+        }catch{
+            fatalError("failure to save highsore: \(error)")
+        }
+    }
+    
+    func getSavedHIghScore() {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName: "HighScore")
+        
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            
+            print(results)
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
 }
