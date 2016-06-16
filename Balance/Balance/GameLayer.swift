@@ -15,7 +15,7 @@ class GameLayer: SKNode {
     var seta = SKSpriteNode()
     var foodSpawn = NSTimeInterval(1)
     var playerSpeedInPixelsPerSecond = CGFloat(640)
-    var posicao: CGFloat  = 0.0
+    var soma: CGFloat  = 0
     
     //player movement
     var presses = Set<UIPress>()
@@ -165,7 +165,7 @@ class GameLayer: SKNode {
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
             
-            self.movingBalance(nameFood)
+            self.movingBalance(nameFood,foodWeight: self.player.getWeight())
             self.player.changeWeight(weight)
             
             self.weightLabel.text = "\(self.player.getWeight())"
@@ -188,22 +188,27 @@ class GameLayer: SKNode {
     }
     
     
-    func movingBalance(nameFood: String){
+    func movingBalance(foodName: String, foodWeight: Int){
+        
         
         //transformar em constantes
         let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
         let rotateRight = CGFloat(M_PI_4*(0.5/10))
         
         
-        switch nameFood {
-        case "bacon":
-            self.seta.zRotation = rotateRight+CGFloat(self.posicao)
-        case "hamburguer":
-            self.seta.zRotation = rotateRight+CGFloat(self.posicao)
-        case "apple":
-            self.seta.zRotation = rotateLeft+CGFloat(self.posicao)
+        switch foodName {
         case "lettuce":
-            self.seta.zRotation = rotateLeft+CGFloat(self.posicao)
+            self.soma += CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateRight+(self.soma)
+        case "apple":
+            self.soma += CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateRight+(self.soma)
+        case "hamburguer":
+            self.soma -= CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateLeft+(self.soma)
+        case "bacon":
+            self.soma -= CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateLeft+(self.soma)
 
         default:
             print("")
