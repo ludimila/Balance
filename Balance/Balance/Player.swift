@@ -16,11 +16,16 @@ class Player: GameObject {
     private var fatState: SKAction!
     private var slimState: SKAction!
     private var eatState: SKAction!
+    private var deathSkullState: SKAction!
+    private var deathExplosionState: SKAction!
     private var weight: Int = 4
     private var silhuet: String!
     
+    var isDead: Bool!
+    
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
+        isDead = false
         self.silhuet = "normal"
         super.init(texture: SKTexture(imageNamed: "normal_Idle1"), color: UIColor.clearColor(), size: CGSizeMake(50, 50))
         self.position = position
@@ -40,17 +45,33 @@ class Player: GameObject {
         
         self.weight = weight + self.weight
         
-        if self.weight < 4  {
+        if self.weight <= 0 && isDead != true {
+            
+            self.silhuet = "esqueleto"
+            self.deathSkullState = self.deathSkullGuy()
+            isDead = true
+            
+        }else if self.weight < 4 && self.weight > 0 && isDead != true {
             
             self.silhuet = "magro"
             self.slimState = self.slimGuy()
             
-        } else if (self.weight >= 4 && self.weight < 7) {
+        } else if (self.weight >= 4 && self.weight < 8 && isDead != true ) {
             silhuet = "normal"
         }
-        else if self.weight >= 7 {
+        else if self.weight > 7 && self.weight <= 10 && isDead != true {
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
+
+        } else if self.weight > 10 && isDead != true {
+            
+           
+            self.silhuet = "explosao"
+            self.deathExplosionState = self.deathExplosionGuy()
+             isDead = true
+            self.userInteractionEnabled = false
+            self.removeAllActions()
+            self.userInteractionEnabled = false
         }
         
         self.initializeAnimations()
@@ -129,6 +150,36 @@ class Player: GameObject {
         let slim = SKAction.animateWithTextures(slimTextures, timePerFrame: 0.5)
         
         return slim
+        
+    }
+    
+    private func deathSkullGuy()-> SKAction{
+        let silhuet = self.silhuet
+        
+        var deathSkullTextures: [SKTexture] = []
+        
+        for i in 1 ... 2 {
+            deathSkullTextures.append(SKTexture(imageNamed: "\(silhuet)Skull\(i)"))
+        }
+        
+        let skull = SKAction.animateWithTextures(deathSkullTextures, timePerFrame: 0.5)
+        
+        return skull
+        
+    }
+    
+    private func deathExplosionGuy()-> SKAction{
+        let silhuet = self.silhuet
+        
+        var deathExplosionTextures: [SKTexture] = []
+        
+        for i in 1 ... 2 {
+            deathExplosionTextures.append(SKTexture(imageNamed: "\(silhuet)Explosion\(i)"))
+        }
+        
+        let explosion = SKAction.animateWithTextures(deathExplosionTextures, timePerFrame: 0.5)
+        
+        return explosion
         
     }
     

@@ -83,33 +83,35 @@ class GameLayer: SKNode {
     
     //move o player pra direita ou pra esquerda quando toca no controle
     func movePlayer(presses: Set<UIPress>){
+        if self.player.isDead != true {
+            var movementSpeed: NSTimeInterval!
+            var movement: SKAction!
+            for press in presses {
+                switch press.type {
+                case .LeftArrow:
+                    movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
+                    movement = SKAction.moveToX(0, duration: movementSpeed)
+                    self.player.xScale = 5
 
-        var movementSpeed: NSTimeInterval!
-        var movement: SKAction!
-        for press in presses {
-            switch press.type {
-            case .LeftArrow:
-                movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
-                movement = SKAction.moveToX(0, duration: movementSpeed)
-                self.player.xScale = 5
-            case .RightArrow:
-                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
-                movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
-                self.player.xScale = -5
+                case .RightArrow:
+                    movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
+                    movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
+                    self.player.xScale = -5
 
-            default:
-                movementSpeed = nil
-            }
-            
-            let actionBloc = SKAction.runBlock({
-                self.player.runAction(self.player.idle(), withKey: "animationAction")
-            })
-            
-            if movementSpeed != nil && movement != nil {
-                let sequence = SKAction.sequence([movement, actionBloc])
+                default:
+                    movementSpeed = nil
+                }
                 
-                self.player.runAction(self.player.running(), withKey: "animationAction")
-                self.player.runAction(sequence, withKey: "moveAction")
+                let actionBloc = SKAction.runBlock({
+                    self.player.runAction(self.player.idle(), withKey: "animationAction")
+                })
+                
+                if movementSpeed != nil && movement != nil {
+                    let sequence = SKAction.sequence([movement, actionBloc])
+                    
+                    self.player.runAction(self.player.running(), withKey: "animationAction")
+                    self.player.runAction(sequence, withKey: "moveAction")
+                }
             }
         }
     }
@@ -127,11 +129,11 @@ class GameLayer: SKNode {
     
     //monitora onde o player tá, teletransporta e continua andandado
     func monitoringPlayerPosition() {
-
+        
         if self.player.position.x <= CGFloat(0) {
             self.player.position.x = CGFloat(self.screenSize.width - 50)
             self.movePlayer(self.presses)
-
+            
         } else if self.player.position.x >= self.screenSize.width - 5 {
             self.player.position.x = CGFloat(50)
             
@@ -157,7 +159,7 @@ class GameLayer: SKNode {
         let randomWidth = Int(arc4random_uniform(UInt32(size.width)))
         
         let maxHeight = size.height
-                
+        
         return CGPointMake(CGFloat(randomWidth), maxHeight)
     }
     
@@ -167,6 +169,7 @@ class GameLayer: SKNode {
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
             
+
             self.movingBalance(nameFood,foodWeight: self.player.getWeight())
             self.player.changeWeight(weight)
             
@@ -176,6 +179,32 @@ class GameLayer: SKNode {
                 (contact.bodyA.node as! Player).idle()
             })
         }
+        if player.isDead == true {
+            self.removeAllActions()
+            //self.player.
+            let gameoveraction = SKAction.waitForDuration(0)
+            runAction(gameoveraction, completion: {
+                self.gameOver()
+            })
+            
+        
+        }
+    }
+    
+    
+    func gameOver() {
+        
+        //_ = SKAction.runBlock(){
+        let transition = SKTransition.fadeWithColor(UIColor.clearColor(), duration: 3.0)
+        let skview = self.scene?.view
+        let newScene = GameOverScene(size: (self.scene?.size)!)
+        newScene.scaleMode = SKSceneScaleMode.AspectFill
+        //        let oldScene = skview?.scene
+        //        oldScene?.removeFromParent()
+        self.scene?.removeAllActions()
+        self.scene?.removeFromParent()
+        skview?.presentScene(newScene, transition: transition)
+        //}
     }
     
     
