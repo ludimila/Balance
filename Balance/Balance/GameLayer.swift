@@ -60,38 +60,39 @@ class GameLayer: SKNode {
     
     //move o player pra direita ou pra esquerda quando toca no controle
     func movePlayer(presses: Set<UIPress>){
-
-        var movementSpeed: NSTimeInterval!
-        var movement: SKAction!
-        for press in presses {
-            switch press.type {
-            case .LeftArrow:
-                movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
-                movement = SKAction.moveToX(0, duration: movementSpeed)
+        if self.player.isDead != true {
+            var movementSpeed: NSTimeInterval!
+            var movement: SKAction!
+            for press in presses {
+                switch press.type {
+                case .LeftArrow:
+                    movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
+                    movement = SKAction.moveToX(0, duration: movementSpeed)
+                    
+                case .RightArrow:
+                    movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
+                    movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
+                default:
+                    movementSpeed = nil
+                }
                 
-            case .RightArrow:
-                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
-                movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
-            default:
-                movementSpeed = nil
-            }
-            
-            let actionBloc = SKAction.runBlock({
-                self.player.runAction(self.player.idle(), withKey: "animationAction")
-            })
-            
-            if movementSpeed != nil && movement != nil {
-                let sequence = SKAction.sequence([movement, actionBloc])
+                let actionBloc = SKAction.runBlock({
+                    self.player.runAction(self.player.idle(), withKey: "animationAction")
+                })
                 
-                self.player.runAction(self.player.running(), withKey: "animationAction")
-                self.player.runAction(sequence, withKey: "moveAction")
+                if movementSpeed != nil && movement != nil {
+                    let sequence = SKAction.sequence([movement, actionBloc])
+                    
+                    self.player.runAction(self.player.running(), withKey: "animationAction")
+                    self.player.runAction(sequence, withKey: "moveAction")
+                }
             }
         }
     }
     
     
     func update(currentTime: CFTimeInterval) {
-       
+        
         self.monitoringPlayerPosition()
         
         if self.food.position.y > self.screenSize.height {
@@ -102,11 +103,11 @@ class GameLayer: SKNode {
     
     //monitora onde o player tá, teletransporta e continua andandado
     func monitoringPlayerPosition() {
-
+        
         if self.player.position.x <= CGFloat(0) {
             self.player.position.x = CGFloat(self.screenSize.width - 50)
             self.movePlayer(self.presses)
-
+            
         } else if self.player.position.x >= self.screenSize.width - 5 {
             self.player.position.x = CGFloat(50)
             
@@ -130,7 +131,7 @@ class GameLayer: SKNode {
         let randomWidth = Int(arc4random_uniform(UInt32(size.width)))
         
         let maxHeight = size.height
-                
+        
         return CGPointMake(CGFloat(randomWidth), maxHeight)
     }
     
@@ -140,63 +141,63 @@ class GameLayer: SKNode {
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
             
-//            var weightPlayer = Int()
-//            weightPlayer = player.getWeight()
+            //            var weightPlayer = Int()
+            //            weightPlayer = player.getWeight()
             
-//            if weightPlayer <= 0 {
-//                //gameover
-//                //stop em todas as animations (skactions)
-////                self.removeAllActions()
-//                //remover todas as sprites
-//                self.removeAllChildren()
-//                //salvar a pontuacao no banco (if best score)
-//                
-//                //se continuar a instancia voltar elas pro estado inicial(zerar o peso do guaxinim, zerar o tempo da musica, zerar a pontuacao, zerar o tempo)
-//                
-//                //run na tela de game over
-////                _ = SKAction.runBlock(){
-////                    let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-////                    let gameOverScene = GameOverScene(size: self.screenSize)
-////                    self.scene?.view?.presentScene(gameOverScene, transition: reveal)
-////                }
-//                self.gameOver()
-//            }else if weightPlayer > 10 {
-//                self.removeAllActions()
-//                self.gameOver()
-                    //gameover
-                    //stop em todas as animations (skactions)
-//                    self.removeAllActions()
-                    //remover todas as sprites
-//                    self.removeAllChildren()
-                    //salvar a pontuacao no banco (if best score)
-                    
-                    //se continuar a instancia voltar elas pro estado inicial(zerar o peso do guaxinim, zerar o tempo da musica, zerar a pontuacao, zerar o tempo)
-                    
-                    //run na tela de game over
-//                    _ = SKAction.runBlock(){
-//                        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-//                        let gameOverScene = GameOverScene(size: self.screenSize, over: true)
-//                        self.scene?.view?.presentScene(gameOverScene, transition: reveal)
-//                }
+            //            if weightPlayer <= 0 {
+            //                //gameover
+            //                //stop em todas as animations (skactions)
+            ////                self.removeAllActions()
+            //                //remover todas as sprites
+            //                self.removeAllChildren()
+            //                //salvar a pontuacao no banco (if best score)
+            //
+            //                //se continuar a instancia voltar elas pro estado inicial(zerar o peso do guaxinim, zerar o tempo da musica, zerar a pontuacao, zerar o tempo)
+            //
+            //                //run na tela de game over
+            ////                _ = SKAction.runBlock(){
+            ////                    let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            ////                    let gameOverScene = GameOverScene(size: self.screenSize)
+            ////                    self.scene?.view?.presentScene(gameOverScene, transition: reveal)
+            ////                }
+            //                self.gameOver()
+            //            }else if weightPlayer > 10 {
+            //                self.removeAllActions()
+            //                self.gameOver()
+            //gameover
+            //stop em todas as animations (skactions)
+            //                    self.removeAllActions()
+            //remover todas as sprites
+            //                    self.removeAllChildren()
+            //salvar a pontuacao no banco (if best score)
             
-                self.player.changeWeight(weight,name: nameFood)
-                self.weightLabel.text = "\(self.player.getWeight())"
-                contact.bodyB.node?.removeFromParent()
-                contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
-                    (contact.bodyA.node as! Player).idle()
-                })
-            }
+            //se continuar a instancia voltar elas pro estado inicial(zerar o peso do guaxinim, zerar o tempo da musica, zerar a pontuacao, zerar o tempo)
+            
+            //run na tela de game over
+            //                    _ = SKAction.runBlock(){
+            //                        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            //                        let gameOverScene = GameOverScene(size: self.screenSize, over: true)
+            //                        self.scene?.view?.presentScene(gameOverScene, transition: reveal)
+            //                }
+            
+            self.player.changeWeight(weight,name: nameFood)
+            self.weightLabel.text = "\(self.player.getWeight())"
+            contact.bodyB.node?.removeFromParent()
+            contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
+                (contact.bodyA.node as! Player).idle()
+            })
+        }
         if player.isDead == true {
             self.removeAllActions()
             //self.player.
             let gameoveraction = SKAction.waitForDuration(3)
-            runAction(gameoveraction, completion: { 
+            runAction(gameoveraction, completion: {
                 self.gameOver()
             })
             
         }
         
-        }
+    }
     
     
     func gameOver() {
@@ -206,8 +207,8 @@ class GameLayer: SKNode {
         let skview = self.scene?.view
         let newScene = GameOverScene(size: (self.scene?.size)!)
         newScene.scaleMode = SKSceneScaleMode.AspectFill
-//        let oldScene = skview?.scene
-//        oldScene?.removeFromParent()
+        //        let oldScene = skview?.scene
+        //        oldScene?.removeFromParent()
         self.scene?.removeAllActions()
         self.scene?.removeFromParent()
         skview?.presentScene(newScene, transition: transition)

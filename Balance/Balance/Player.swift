@@ -45,30 +45,33 @@ class Player: GameObject {
         
         self.weight = weight + self.weight
         
-        if self.weight <= 0 {
+        if self.weight <= 0 && isDead != true {
             
             self.silhuet = "esqueleto"
             self.deathSkullState = self.deathSkullGuy()
             isDead = true
             
-        }else if self.weight < 4 && self.weight > 0 {
+        }else if self.weight < 4 && self.weight > 0 && isDead != true {
             
             self.silhuet = "magro"
             self.slimState = self.slimGuy()
             
-        } else if (self.weight >= 4 && self.weight < 8) {
+        } else if (self.weight >= 4 && self.weight < 8 && isDead != true ) {
             silhuet = "normal"
         }
-        else if self.weight > 7 && self.weight <= 10{
+        else if self.weight > 7 && self.weight <= 10 && isDead != true {
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
 
-        } else if self.weight > 10 {
+        } else if self.weight > 10 && isDead != true {
             
            
             self.silhuet = "explosao"
             self.deathExplosionState = self.deathExplosionGuy()
              isDead = true
+            self.userInteractionEnabled = false
+            self.removeAllActions()
+            self.userInteractionEnabled = false
         }
         
         self.initializeAnimations()
