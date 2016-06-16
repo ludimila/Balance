@@ -41,7 +41,7 @@ class Player: GameObject {
         return self.weight
     }
     
-    func changeWeight(weight: Int, name: String){
+    func changeWeight(weight: Int){
         
         self.weight = weight + self.weight
         

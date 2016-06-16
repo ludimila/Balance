@@ -12,7 +12,7 @@ import SpriteKit
 class Food: GameObject {
     
     var weight: Int = 0
-    var imageName: String = "Spaceship"
+    var imageName: String = ""
     
     init(position: CGPoint, weight: Int, imageName: String) {
         
@@ -49,5 +49,10 @@ class Food: GameObject {
         self.runAction(wait) { 
             self.removeFromParent()
         }
+    }
+    
+    func reduceFoodScale() {
+        let scaleAction = SKAction.scaleTo(0.8, duration: 4)
+        self.runAction(scaleAction)
     }
 }

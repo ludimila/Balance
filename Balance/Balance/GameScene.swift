@@ -13,7 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameLayer: GameLayer! = nil
     var backgroundLayer: BackgroundLayer!
-    var worldGravity = CGFloat(-10.0)
+    var worldGravity = CGFloat(-1.0)
     
     var timer: NSTimer!
     var time:Int = 3

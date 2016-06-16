@@ -11,18 +11,22 @@ import SpriteKit
 
 class GameLayer: SKNode {
     
+    //balança
+    var seta = SKSpriteNode()
     var foodSpawn = NSTimeInterval(1)
     var playerSpeedInPixelsPerSecond = CGFloat(640)
+    var soma: CGFloat  = 0
     
     //player movement
     var presses = Set<UIPress>()
     
     var food: Food!
     var screenSize:CGSize!
-    let foods = [(1,"hamburguer"),
-                 (3,"bacon"),
+    let foods = [(2,"hamburguer"),
+                 (1,"bacon"),
                  (-1,"apple"),
-                 (-3,"lettuce")]
+                 (-2,"lettuce")]
+    
     var player: Player!
     var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
     
@@ -30,25 +34,43 @@ class GameLayer: SKNode {
         
         self.screenSize = size
         super.init()
-        self.player = Player(position: CGPointMake(size.width/2, size.height * 0.15))
+        
+        self.addPlayer()
+        self.dropFood()
+        self.addBalanca()
+
+        self.weightLabel.fontSize = 65
+        self.weightLabel.position = CGPoint(x: 960, y: 540)
+        self.weightLabel.text = "\(self.player.getWeight())"
+        self.addChild(self.weightLabel)
+        
+        
+    }
+    
+    
+    
+    //adiciona Player
+    
+    func addPlayer(){
+    
+        self.player = Player(position: CGPointMake(self.screenSize.width/2, self.screenSize .height * 0.15))
         self.player.setScale(5.0)
         self.addChild(player)
-        
         self.player.runAction(self.player.idle(), withKey: "animationAction")
+    }
+    
+    
+    //faz comida cair
+    func dropFood() {
         
-        let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScren), onTarget: self)
+        let dropFood = SKAction.performSelector(#selector(putVariousFoodsInScreen), onTarget: self)
         let wait = SKAction.waitForDuration(self.foodSpawn, withRange: 2)
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
         self.runAction(repeatActionForever)
-        
-        self.weightLabel.fontSize = 65
-        self.weightLabel.position = CGPoint(x: 960, y: 540)
-        self.weightLabel.text = "\(self.player.getWeight())"
-        self.addChild(self.weightLabel)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -57,6 +79,7 @@ class GameLayer: SKNode {
         self.presses = presses
         self.movePlayer(self.presses)
     }
+    
     
     //move o player pra direita ou pra esquerda quando toca no controle
     func movePlayer(presses: Set<UIPress>){
@@ -68,10 +91,13 @@ class GameLayer: SKNode {
                 case .LeftArrow:
                     movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
                     movement = SKAction.moveToX(0, duration: movementSpeed)
-                    
+                    self.player.xScale = 5
+
                 case .RightArrow:
                     movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
                     movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
+                    self.player.xScale = -5
+
                 default:
                     movementSpeed = nil
                 }
@@ -92,7 +118,7 @@ class GameLayer: SKNode {
     
     
     func update(currentTime: CFTimeInterval) {
-        
+
         self.monitoringPlayerPosition()
         
         if self.food.position.y > self.screenSize.height {
@@ -116,13 +142,15 @@ class GameLayer: SKNode {
         }
     }
     
-    func putVariousFoodsInScren() {
+    func putVariousFoodsInScreen() {
         
         let randomFood = Int(arc4random_uniform(4)+1)-1
         
         self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
-        self.food.setScale(0.8)
+        self.food.imageName = self.foods[randomFood].1
+        self.food.setScale(2)
         self.addChild(self.food)
+        self.food.reduceFoodScale()
         self.food.removeFoodAfterPeriod()
     }
     
@@ -141,46 +169,10 @@ class GameLayer: SKNode {
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
             
-            //            var weightPlayer = Int()
-            //            weightPlayer = player.getWeight()
+
+            self.movingBalance(nameFood,foodWeight: self.player.getWeight())
+            self.player.changeWeight(weight)
             
-            //            if weightPlayer <= 0 {
-            //                //gameover
-            //                //stop em todas as animations (skactions)
-            ////                self.removeAllActions()
-            //                //remover todas as sprites
-            //                self.removeAllChildren()
-            //                //salvar a pontuacao no banco (if best score)
-            //
-            //                //se continuar a instancia voltar elas pro estado inicial(zerar o peso do guaxinim, zerar o tempo da musica, zerar a pontuacao, zerar o tempo)
-            //
-            //                //run na tela de game over
-            ////                _ = SKAction.runBlock(){
-            ////                    let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-            ////                    let gameOverScene = GameOverScene(size: self.screenSize)
-            ////                    self.scene?.view?.presentScene(gameOverScene, transition: reveal)
-            ////                }
-            //                self.gameOver()
-            //            }else if weightPlayer > 10 {
-            //                self.removeAllActions()
-            //                self.gameOver()
-            //gameover
-            //stop em todas as animations (skactions)
-            //                    self.removeAllActions()
-            //remover todas as sprites
-            //                    self.removeAllChildren()
-            //salvar a pontuacao no banco (if best score)
-            
-            //se continuar a instancia voltar elas pro estado inicial(zerar o peso do guaxinim, zerar o tempo da musica, zerar a pontuacao, zerar o tempo)
-            
-            //run na tela de game over
-            //                    _ = SKAction.runBlock(){
-            //                        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-            //                        let gameOverScene = GameOverScene(size: self.screenSize, over: true)
-            //                        self.scene?.view?.presentScene(gameOverScene, transition: reveal)
-            //                }
-            
-            self.player.changeWeight(weight,name: nameFood)
             self.weightLabel.text = "\(self.player.getWeight())"
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
@@ -190,13 +182,13 @@ class GameLayer: SKNode {
         if player.isDead == true {
             self.removeAllActions()
             //self.player.
-            let gameoveraction = SKAction.waitForDuration(3)
+            let gameoveraction = SKAction.waitForDuration(0)
             runAction(gameoveraction, completion: {
                 self.gameOver()
             })
             
-        }
         
+        }
     }
     
     
@@ -214,4 +206,46 @@ class GameLayer: SKNode {
         skview?.presentScene(newScene, transition: transition)
         //}
     }
+    
+    
+    //balanca
+    
+    func addBalanca(){
+        //balança
+        self.seta = SKSpriteNode.init(imageNamed: "seta")
+        self.seta.position = CGPointMake(self.screenSize.width/2, self.screenSize.height/2)
+        self.seta.anchorPoint = CGPointMake(0.5, 0.0)
+        self.addChild(self.seta)
+    }
+    
+    
+    func movingBalance(foodName: String, foodWeight: Int){
+        
+        
+        //transformar em constantes
+        let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
+        let rotateRight = CGFloat(M_PI_4*(0.5/10))
+        
+        
+        switch foodName {
+        case "lettuce":
+            self.soma += CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateRight+(self.soma)
+        case "apple":
+            self.soma += CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateRight+(self.soma)
+        case "hamburguer":
+            self.soma -= CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateLeft+(self.soma)
+        case "bacon":
+            self.soma -= CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateLeft+(self.soma)
+
+        default:
+            print("")
+        }
+        
+    }
+    
+    
 }

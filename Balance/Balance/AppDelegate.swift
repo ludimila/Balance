@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    // MARK: - Core Data stack
+//    // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.JGBrittos.asdasd" in the application's documents Application Support directory.
