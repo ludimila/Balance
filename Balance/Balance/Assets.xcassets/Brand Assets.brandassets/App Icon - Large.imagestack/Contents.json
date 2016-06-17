@@ -1,0 +1,23 @@
+{
+  "layers" : [
+    {
+      "filename" : "Food.imagestacklayer"
+    },
+    {
+      "filename" : "Racoon.imagestacklayer"
+    },
+    {
+      "filename" : "Stars.imagestacklayer"
+    },
+    {
+      "filename" : "Name.imagestacklayer"
+    },
+    {
+      "filename" : "Background.imagestacklayer"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
