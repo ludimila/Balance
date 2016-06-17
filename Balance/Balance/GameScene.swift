@@ -35,6 +35,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         timerLabel.fontSize = 65
         timerLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
+        //smoke particle
+        let path = NSBundle.mainBundle().pathForResource("SmokeParticle", ofType: "sks")
+        let smokeParticleTaller = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        
+        smokeParticleTaller.position = CGPointMake(self.size.width/2 + 50, self.size.width/2.15)
+        smokeParticleTaller.name = "smokeParticleTaller"
+        smokeParticleTaller.targetNode = self.scene
+        self.addChild(smokeParticleTaller)
+        
+        let smokeParticleLowest = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        smokeParticleLowest.name = "smokeParticleLowest"
+        smokeParticleLowest.position = CGPointMake(self.size.width/2-45, self.size.width/2.25)
+        smokeParticleLowest.targetNode = self.scene
+        self.addChild(smokeParticleLowest)
+        
+        
         
         let timer = SKAction.waitForDuration(1)
         self.actionTimeGame = SKAction.runBlock {
