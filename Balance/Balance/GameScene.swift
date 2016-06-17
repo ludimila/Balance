@@ -35,6 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         timerLabel.fontSize = 65
         timerLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
+        
         let timer = SKAction.waitForDuration(1)
         self.actionTimeGame = SKAction.runBlock {
             if self.time <= 3 && self.ascending == false {
