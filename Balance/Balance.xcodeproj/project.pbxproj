@@ -29,6 +29,9 @@
 		93FE574F1CE3B11E00C787C3 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93FE574E1CE3B11E00C787C3 /* Game.xcassets */; };
 		93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93FE57501CE3B11E00C787C3 /* Main.storyboard */; };
 		93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93FE57531CE3B11E00C787C3 /* Assets.xcassets */; };
+		B11EAA011D1488F900BB7652 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11EAA001D1488F900BB7652 /* CustomButton.swift */; };
+		B11EAA031D148A0A00BB7652 /* Restart.png in Resources */ = {isa = PBXBuildFile; fileRef = B11EAA021D148A0A00BB7652 /* Restart.png */; };
+		B11EAA051D148A3900BB7652 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = B11EAA041D148A3900BB7652 /* Home.png */; };
 		B1F152BD1D089B97005AD4CF /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F152BC1D089B97005AD4CF /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,9 @@
 		93FE57511CE3B11E00C787C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		93FE57531CE3B11E00C787C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93FE57551CE3B11E00C787C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B11EAA001D1488F900BB7652 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		B11EAA021D148A0A00BB7652 /* Restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Restart.png; sourceTree = "<group>"; };
+		B11EAA041D148A3900BB7652 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		B1F152BC1D089B97005AD4CF /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,7 +101,9 @@
 			isa = PBXGroup;
 			children = (
 				02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */,
+				B11EAA041D148A3900BB7652 /* Home.png */,
 				2712B4971D14742400C12033 /* SmokeParticle.sks */,
+				B11EAA021D148A0A00BB7652 /* Restart.png */,
 				2712B4981D14742400C12033 /* spark.png */,
 			);
 			name = Resources;
@@ -108,6 +116,7 @@
 				93894D421CE3BDC0008677AB /* GameObject.swift */,
 				93894D441CE3BDD0008677AB /* Food.swift */,
 				02208F7D1CE4FC58009AF914 /* BackgroundMusic.swift */,
+				B11EAA001D1488F900BB7652 /* CustomButton.swift */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -182,7 +191,7 @@
 				TargetAttributes = {
 					93FE57421CE3B11E00C787C3 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 7K58N8K4L5;
+						DevelopmentTeam = 9YKWWS6Y47;
 					};
 				};
 			};
@@ -211,8 +220,10 @@
 			files = (
 				02208F7C1CE4FBBB009AF914 /* bensound-funnysong.mp3 in Resources */,
 				93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */,
+				B11EAA051D148A3900BB7652 /* Home.png in Resources */,
 				93FE57491CE3B11E00C787C3 /* GameScene.sks in Resources */,
 				2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */,
+				B11EAA031D148A0A00BB7652 /* Restart.png in Resources */,
 				93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */,
 				2712B49A1D14742400C12033 /* spark.png in Resources */,
 				02208F781CE3C927009AF914 /* MenuScene.sks in Resources */,
@@ -231,6 +242,7 @@
 				93FE574B1CE3B11E00C787C3 /* GameScene.swift in Sources */,
 				93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */,
 				93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */,
+				B11EAA011D1488F900BB7652 /* CustomButton.swift in Sources */,
 				2704FD7E1CE5053A00EEA563 /* HighScore.swift in Sources */,
 				93894D3F1CE3BD28008677AB /* HudLayer.swift in Sources */,
 				93894D431CE3BDC0008677AB /* GameObject.swift in Sources */,
