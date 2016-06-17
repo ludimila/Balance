@@ -11,11 +11,15 @@ import SpriteKit
 
 class GameLayer: SKNode {
     
+    
+    let screenGameOver = UIView()
+    
     //balança
     var seta = SKSpriteNode()
     var foodSpawn = NSTimeInterval(1)
     var playerSpeedInPixelsPerSecond = CGFloat(640)
     var soma: CGFloat  = 0
+
     
     //player movement
     var presses = Set<UIPress>()
@@ -208,6 +212,8 @@ class GameLayer: SKNode {
     }
     
     
+    
+    
     //balanca
     
     func addBalanca(){
@@ -220,7 +226,7 @@ class GameLayer: SKNode {
     
     
     func movingBalance(foodName: String, foodWeight: Int){
-        
+       
         
         //transformar em constantes
         let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
@@ -229,16 +235,16 @@ class GameLayer: SKNode {
         
         switch foodName {
         case "lettuce":
-            self.soma += CGFloat(foodWeight)/100
+            self.soma += CGFloat(abs(foodWeight))/100
             self.seta.zRotation = rotateRight+(self.soma)
         case "apple":
-            self.soma += CGFloat(foodWeight)/100
+            self.soma += CGFloat(abs(foodWeight))/100
             self.seta.zRotation = rotateRight+(self.soma)
         case "hamburguer":
-            self.soma -= CGFloat(foodWeight)/100
+            self.soma -= CGFloat(abs(foodWeight))/100
             self.seta.zRotation = rotateLeft+(self.soma)
         case "bacon":
-            self.soma -= CGFloat(foodWeight)/100
+            self.soma -= CGFloat(abs(foodWeight))/100
             self.seta.zRotation = rotateLeft+(self.soma)
 
         default:

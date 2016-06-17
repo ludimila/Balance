@@ -45,7 +45,7 @@ class Player: GameObject {
         
         self.weight = weight + self.weight
         
-        if self.weight <= 0 && isDead != true {
+        if self.weight <= -10 && isDead != true {
             
             self.silhuet = "esqueleto"
             self.deathSkullState = self.deathSkullGuy()
