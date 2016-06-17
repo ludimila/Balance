@@ -14,6 +14,8 @@
 		2704FD7A1CE503C200EEA563 /* HighScoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2704FD781CE503C200EEA563 /* HighScoreModel.xcdatamodeld */; };
 		2704FD7D1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2704FD7B1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift */; };
 		2704FD7E1CE5053A00EEA563 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2704FD7C1CE5053A00EEA563 /* HighScore.swift */; };
+		2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2712B4971D14742400C12033 /* SmokeParticle.sks */; };
+		2712B49A1D14742400C12033 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B4981D14742400C12033 /* spark.png */; };
 		93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3A1CE3BC42008677AB /* GameLayer.swift */; };
 		93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */; };
 		93894D3F1CE3BD28008677AB /* HudLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3E1CE3BD28008677AB /* HudLayer.swift */; };
@@ -38,6 +40,8 @@
 		2704FD791CE503C200EEA563 /* HighScoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HighScoreModel.xcdatamodel; sourceTree = "<group>"; };
 		2704FD7B1CE5053A00EEA563 /* HighScore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HighScore+CoreDataProperties.swift"; path = "../HighScore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2704FD7C1CE5053A00EEA563 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighScore.swift; path = ../HighScore.swift; sourceTree = "<group>"; };
+		2712B4971D14742400C12033 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
+		2712B4981D14742400C12033 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		93894D3A1CE3BC42008677AB /* GameLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLayer.swift; sourceTree = "<group>"; };
 		93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundLayer.swift; sourceTree = "<group>"; };
 		93894D3E1CE3BD28008677AB /* HudLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudLayer.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */,
+				2712B4971D14742400C12033 /* SmokeParticle.sks */,
+				2712B4981D14742400C12033 /* spark.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -206,7 +212,9 @@
 				02208F7C1CE4FBBB009AF914 /* bensound-funnysong.mp3 in Resources */,
 				93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */,
 				93FE57491CE3B11E00C787C3 /* GameScene.sks in Resources */,
+				2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */,
 				93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */,
+				2712B49A1D14742400C12033 /* spark.png in Resources */,
 				02208F781CE3C927009AF914 /* MenuScene.sks in Resources */,
 				93FE574F1CE3B11E00C787C3 /* Game.xcassets in Resources */,
 			);

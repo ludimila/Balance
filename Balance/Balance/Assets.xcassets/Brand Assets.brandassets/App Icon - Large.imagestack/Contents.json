@@ -1,13 +1,19 @@
 {
   "layers" : [
     {
-      "filename" : "Front.imagestacklayer"
+      "filename" : "Food.imagestacklayer"
     },
     {
-      "filename" : "Middle.imagestacklayer"
+      "filename" : "Racoon.imagestacklayer"
     },
     {
-      "filename" : "Back.imagestacklayer"
+      "filename" : "Stars.imagestacklayer"
+    },
+    {
+      "filename" : "Name.imagestacklayer"
+    },
+    {
+      "filename" : "Background.imagestacklayer"
     }
   ],
   "info" : {
