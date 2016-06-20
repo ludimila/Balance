@@ -22,10 +22,12 @@ class GameLayer: SKNode {
     
     var food: Food!
     var screenSize:CGSize!
-    let foods = [(2,"hamburguer"),
+    let foods = [(3, "chicken_leg"),
+                 (2,"hamburguer"),
                  (1,"bacon"),
                  (-1,"apple"),
-                 (-2,"lettuce")]
+                 (-2,"lettuce"),
+                 (-3, "corn")]
     
     var player: Player!
     var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
@@ -99,7 +101,9 @@ class GameLayer: SKNode {
                     self.player.xScale = -5
 
                 default:
-                    movementSpeed = nil
+                    //stop movement
+                    movementSpeed = 0
+                    movement = SKAction.moveToX((self.player.position.x), duration: movementSpeed)
                 }
                 
                 let actionBloc = SKAction.runBlock({
@@ -144,7 +148,7 @@ class GameLayer: SKNode {
     
     func putVariousFoodsInScreen() {
         
-        let randomFood = Int(arc4random_uniform(4)+1)-1
+        let randomFood = Int(arc4random_uniform(6)+1)-1
         
         self.food = Food(position: self.generateRandomPosition(self.screenSize), weight: self.foods[randomFood].0, imageName: self.foods[randomFood].1)
         self.food.imageName = self.foods[randomFood].1
@@ -209,7 +213,6 @@ class GameLayer: SKNode {
     
     
     //balanca
-    
     func addBalanca(){
         //balança
         self.seta = SKSpriteNode.init(imageNamed: "seta")
@@ -220,14 +223,15 @@ class GameLayer: SKNode {
     
     
     func movingBalance(foodName: String, foodWeight: Int){
-        
-        
         //transformar em constantes
         let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
         let rotateRight = CGFloat(M_PI_4*(0.5/10))
         
         
         switch foodName {
+        case "corn":
+            self.soma += CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateRight+(self.soma)
         case "lettuce":
             self.soma += CGFloat(foodWeight)/100
             self.seta.zRotation = rotateRight+(self.soma)
@@ -240,7 +244,9 @@ class GameLayer: SKNode {
         case "bacon":
             self.soma -= CGFloat(foodWeight)/100
             self.seta.zRotation = rotateLeft+(self.soma)
-
+        case "chicken_leg":
+            self.soma -= CGFloat(foodWeight)/100
+            self.seta.zRotation = rotateLeft+(self.soma)
         default:
             print("")
         }
