@@ -60,6 +60,15 @@ class MenuScene: SKScene {
             
             scene.scaleMode = .AspectFill
             
+            let path = NSBundle.mainBundle().pathForResource("FireParticle", ofType: "sks")
+            let fireParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+            
+            fireParticle.name = "fireParticle"
+            fireParticle.position = CGPointMake(self.size.width/2, self.size.width/2.20)
+            fireParticle.targetNode = self.scene
+            
+            self.addChild(fireParticle)
+            
             let transition = SKTransition.crossFadeWithDuration(1)
             
             skView!.presentScene(scene, transition: transition)
