@@ -29,10 +29,11 @@ class CustomButton: SKSpriteNode {
         }
     }
     
-    init(image: String) {
+    init(image: String, action: ActionBlock) {
         let texture = SKTexture(imageNamed: image)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
+        self.actionBlock = action
         self.enabled = true
         self.setScale(1)
         self.originalScale = 1
@@ -92,9 +93,9 @@ class CustomButton: SKSpriteNode {
     
     func resetButton () -> Void {
         
-        let resetRotation = SKAction.rotateToAngle(self.originalRotationAngle, duration: 0.25)
+        //let resetRotation = SKAction.rotateToAngle(self.originalRotationAngle, duration: 0.25)
         let resetScale = SKAction.scaleTo(1, duration: 0.25)
-        let group = SKAction.group([resetRotation, resetScale])
+        let group = SKAction.group([resetScale])
         self.runAction(group)
         
     }
