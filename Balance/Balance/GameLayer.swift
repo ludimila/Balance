@@ -185,7 +185,7 @@ class GameLayer: SKNode {
             self.removeAllActions()
             //remover todas as comidas da tela
             //ativar a animação de explosão
-            self.player.exploding()
+            self.player.runAction(self.player.exploding())
             let gameoveraction = SKAction.waitForDuration(3)
             runAction(gameoveraction, completion: {
                 self.gameOver()
