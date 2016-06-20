@@ -27,6 +27,7 @@ class HudLayer: SKNode {
         //arrow
         self.arrowBalance = SKSpriteNode.init(imageNamed: "arrow")
         self.arrowBalance.anchorPoint = CGPointMake(0.5, 0.0)
+        self.arrowBalance.position = CGPointMake(0, -100)
         self.balance.addChild(self.arrowBalance)
     }
     
