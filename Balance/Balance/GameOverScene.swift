@@ -65,7 +65,6 @@ class GameOverScene: SKScene {
             let scene = MenuScene(fileNamed: "MenuScene")
             scene!.scaleMode = .AspectFill
             self.view!.presentScene(scene)
-            self.removeGestureRecognizers()
         })
         
         menuButton.position = CGPointMake(self.frame.size.width - 1200, self.frame.size.height - 700)
@@ -84,10 +83,6 @@ class GameOverScene: SKScene {
             let transition = SKTransition.crossFadeWithDuration(1)
             skView!.presentScene(scene, transition: transition)
 
-//            let scene = GameLayer(size: (self.view!.frame.size))
-//            self.view?.presentScene(scene)
-            self.removeGestureRecognizers()
-            
         })
         
         restartButton.position = CGPointMake(self.frame.size.width - 750, self.frame.size.height - 700)
@@ -96,6 +91,8 @@ class GameOverScene: SKScene {
         
         self.focusableButtons.append(restartButton)
         self.setupGestureRecognizers(view)
+        self.view?.userInteractionEnabled = true
+
         
     }
     
@@ -143,124 +140,11 @@ class GameOverScene: SKScene {
         
     }
     
-    func removeGestureRecognizers () {
-        
-        self.view?.userInteractionEnabled = false
-        
-    }
-    
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
         for button in self.focusableButtons {
             button.handlPress(presses, withEvent: event)
         }
     }
-    
-//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-//        let touch: UITouch = touches.first!
-//        let location: CGPoint = touch.locationInNode(self)
-//        
-//        if replayButton.containsPoint(location) {
-//            
-//            let scene = GameScene(size: self.size)
-//            // Configure the view.
-//            let skView = self.view
-//            skView!.showsFPS = true
-//            
-//            skView!.showsNodeCount = true
-//            
-//            skView!.ignoresSiblingOrder = true
-//            
-//            scene.scaleMode = .AspectFill
-//            
-//            let transition = SKTransition.crossFadeWithDuration(1)
-//            
-//            skView!.presentScene(scene, transition: transition)
-        
-//        for touch in touches {
-//            let location = touch.locationInNode(self)
-//            
-//            checkTouch (location)
-//        }
-        
-//        }
-        
-//        if menuButton.containsPoint(location) {
-//            
-//            let scene = MenuScene(size: self.size)
-//            // Configure the view.
-//            let skView = self.view
-//            
-//            scene.scaleMode = .AspectFill
-//            
-//            let transition = SKTransition.crossFadeWithDuration(1)
-//            
-//            skView!.presentScene(scene, transition: transition)
-//            
-//        }
-        
-//    }
-    
-//    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-//        let touch: UITouch = touches.first!
-//        let location: CGPoint = touch.locationInNode(self)
-//        
-//        let sprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: 50, height: 50))
-//        sprite.position = location
-//        sprite.zPosition = 1000
-//        self.addChild(sprite)
-        
-//        for touch in touches {
-//            let location = touch.locationInNode(self)
-//            
-//            checkTouch (location)
-//        }
-//    }
-    
-//    func checkTouch(location: CGPoint) {
-//        
-//        self.enumerateChildNodesWithName("//*") {
-//         node, stop in
-//            
-//            if (node.name == "replayButton"){
-//                if let sprite: SKSpriteNode = node as? SKSpriteNode {
-//                    if (CGRectContainsPoint(sprite.frame, location)) {
-//                        sprite.xScale = self.focusScale
-//                        sprite.yScale = self.focusScale
-//                        
-//                        self.menuButton.xScale = self.unfocusedScale
-//                        self.menuButton.yScale = self.unfocusedScale
-//                        
-//                        sprite.zPosition = 100
-//                        sprite.name = self.replayButton.name
-//                        self.replayButton = sprite
-//                        
-//                        print(sprite.name)
-//                        
-//                    }
-//                }
-//            } else if (node.name == "menuButton") {
-//                if let sprite: SKSpriteNode = node as? SKSpriteNode {
-//                    if (CGRectContainsPoint(sprite.frame, location)) {
-//                        sprite.xScale = self.focusScale
-//                        sprite.yScale = self.focusScale
-//                        
-//                        self.replayButton.xScale = self.unfocusedScale
-//                        self.replayButton.yScale = self.unfocusedScale
-//                        
-//                        sprite.zPosition = 100
-//                        sprite.name = self.menuButton.name
-//                        self.menuButton = sprite
-//                        print(sprite.name)
-//
-//                    }
-//            
-//                }
-//        
-//            }
-//        }
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
