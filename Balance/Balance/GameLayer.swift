@@ -45,8 +45,6 @@ class GameLayer: SKNode {
         self.weightLabel.position = CGPoint(x: 960, y: 540)
         self.weightLabel.text = "\(self.player.getWeight())"
         self.addChild(self.weightLabel)
-        
-        
     }
     
     
@@ -185,8 +183,10 @@ class GameLayer: SKNode {
         }
         if player.isDead == true {
             self.removeAllActions()
-            //self.player.
-            let gameoveraction = SKAction.waitForDuration(0)
+            //remover todas as comidas da tela
+            //ativar a animação de explosão
+            self.player.exploding()
+            let gameoveraction = SKAction.waitForDuration(3)
             runAction(gameoveraction, completion: {
                 self.gameOver()
             })

@@ -173,11 +173,11 @@ class Player: GameObject {
         
         var deathExplosionTextures: [SKTexture] = []
         
-        for i in 1 ... 2 {
+        for i in 1 ... 7 {
             deathExplosionTextures.append(SKTexture(imageNamed: "\(silhuet)Explosion\(i)"))
         }
         
-        let explosion = SKAction.animateWithTextures(deathExplosionTextures, timePerFrame: 0.5)
+        let explosion = SKAction.animateWithTextures(deathExplosionTextures, timePerFrame: 0.42)
         
         return explosion
         
@@ -189,6 +189,7 @@ class Player: GameObject {
         self.eatState = self.loadEatingAnimation()
         self.idleState = self.loadIdleAnimation()
         self.runState = self.loadRunningAnimation()
+        self.deathExplosionState = self.deathExplosionGuy()
     }
     
     //MARK: Player Actions
@@ -209,6 +210,10 @@ class Player: GameObject {
         self.removeActionForKey("currentAnimation")
         
         return self.eatState
+    }
+    
+    func exploding() -> SKAction{
+        return self.deathExplosionState
     }
     
     //MARK: Object Physics
