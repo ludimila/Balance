@@ -19,6 +19,7 @@ class Food: GameObject {
         super.init(texture: SKTexture(imageNamed: imageName), color: UIColor.clearColor(), size: CGSizeMake(100, 100))
     
         self.weight = weight
+        self.name = imageName
         self.position = position
         self.physicsBody = self.generatePhysicsBody()
         
