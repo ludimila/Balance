@@ -35,7 +35,6 @@
 		93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93FE57531CE3B11E00C787C3 /* Assets.xcassets */; };
 		B11EAA011D1488F900BB7652 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11EAA001D1488F900BB7652 /* CustomButton.swift */; };
 		B11EAA031D148A0A00BB7652 /* Restart.png in Resources */ = {isa = PBXBuildFile; fileRef = B11EAA021D148A0A00BB7652 /* Restart.png */; };
-		B11EAA051D148A3900BB7652 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = B11EAA041D148A3900BB7652 /* Home.png */; };
 		B1F152BD1D089B97005AD4CF /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F152BC1D089B97005AD4CF /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,7 +69,6 @@
 		93FE57551CE3B11E00C787C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B11EAA001D1488F900BB7652 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		B11EAA021D148A0A00BB7652 /* Restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Restart.png; sourceTree = "<group>"; };
-		B11EAA041D148A3900BB7652 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		B1F152BC1D089B97005AD4CF /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +108,6 @@
 			children = (
 				27EC88A01D197F9D00DFA7DE /* cartoonist_kooky.ttf */,
 				02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */,
-				B11EAA041D148A3900BB7652 /* Home.png */,
 				2712B4971D14742400C12033 /* SmokeParticle.sks */,
 				B11EAA021D148A0A00BB7652 /* Restart.png */,
 				27EC88AE1D19AC9C00DFA7DE /* star.png */,
@@ -234,7 +231,6 @@
 				93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */,
 				27EC88A11D197FA200DFA7DE /* cartoonist_kooky.ttf in Resources */,
 				27EC88B11D19AD6500DFA7DE /* FoodParticle.sks in Resources */,
-				B11EAA051D148A3900BB7652 /* Home.png in Resources */,
 				93FE57491CE3B11E00C787C3 /* GameScene.sks in Resources */,
 				2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */,
 				B11EAA031D148A0A00BB7652 /* Restart.png in Resources */,
