@@ -26,7 +26,7 @@ class Player: GameObject {
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
         self.isDead = false
-        self.silhuet = "pesonormal"
+        self.silhuet = "normal"
         super.init(texture: SKTexture(imageNamed: "normal_Idle1"), color: UIColor.clearColor(), size: CGSizeMake(50, 50))
         self.position = position
         self.physicsBody = self.generatePhysicsBody()
@@ -57,7 +57,7 @@ class Player: GameObject {
             self.slimState = self.slimGuy()
             
         } else if (self.weight >= 4 && self.weight < 8 && isDead != true ) {
-            self.silhuet = "pesonormal"
+            self.silhuet = "normal"
         }
         else if self.weight > 7 && self.weight <= 10 && isDead != true {
             self.silhuet = "gordo"
@@ -79,8 +79,8 @@ class Player: GameObject {
         let silhuet = self.silhuet
         var idleTextures: [SKTexture] = []
         
-        for i in 1 ... 5 {
-            idleTextures.append(SKTexture(imageNamed: "\(silhuet)\(i)"))
+        for i in 1 ... 3 {
+            idleTextures.append(SKTexture(imageNamed: "\(silhuet)_Idle\(i)"))
         }
         
         let idle = SKAction.animateWithTextures(idleTextures, timePerFrame: 0.2)
@@ -179,6 +179,10 @@ class Player: GameObject {
         self.runState = self.loadRunningAnimation()
         self.deathExplosionState = self.deathExplosionGuy()
         self.deathSkullState = self.deathSkullGuy()
+
+        self.slimState = self.loadRunningAnimation()
+        self.fatState = self.loadRunningAnimation()
+        
     }
     
     
@@ -210,6 +214,8 @@ class Player: GameObject {
     func skeleton() -> SKAction {
         return self.deathSkullState
     }
+    
+
     
     //MARK: Object Physics
     override func generatePhysicsBody() -> SKPhysicsBody {
