@@ -23,7 +23,6 @@ class HighScore: NSManagedObject {
         let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
         print(highScore) //TODO: Tirar esse print
         
-        // TO-DO : Pegar o tempo e salvar
 //        highScore.setValue(self.time, forKey: "highscore")
         
         do {
@@ -34,21 +33,24 @@ class HighScore: NSManagedObject {
         }
     }
     
-    func getSavedHIghScore() {
+    func getSavedHIghScore() -> AnyObject {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        var results = [AnyObject]()
         
         let managedContext = appDelegate.managedObjectContext
         
         let fetchRequest = NSFetchRequest(entityName: "HighScore")
         
         do {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
+             results = try managedContext.executeFetchRequest(fetchRequest)
             
-            print(results)
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
+        
+        return results.first!
+
     }
     
 

@@ -92,12 +92,12 @@ class GameLayer: SKNode {
                 case .LeftArrow:
                     movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
                     movement = SKAction.moveToX(0, duration: movementSpeed)
-                    self.player.xScale = 5
+                    self.player.xScale = -5
 
                 case .RightArrow:
                     movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
                     movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
-                    self.player.xScale = -5
+                    self.player.xScale = 5
 
                 default:
                     //stop movement

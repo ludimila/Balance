@@ -23,7 +23,7 @@ class HudLayer: SKNode {
         
         //balance
         self.balance = SKSpriteNode.init(imageNamed: "balance")
-        self.balance.position = CGPointMake(size.width/2, size.height - (balance.frame.size.height/2))
+        self.balance.position = CGPointMake(size.width/2+size.width/3, size.height - (balance.frame.size.height/2))
         self.addChild(balance)
         
         
@@ -44,15 +44,17 @@ class HudLayer: SKNode {
         let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
         let rotateRight = CGFloat(M_PI_4*(0.5/10))
         
+        print(foodWeight)
+        
         switch foodName {
         case "corn":
-            self.sum += CGFloat(foodWeight)/100
+            self.sum += CGFloat(abs(foodWeight))/100
             self.arrowBalance.zRotation = rotateRight+(self.sum)
         case "lettuce":
-            self.sum += CGFloat(foodWeight)/100
+            self.sum += CGFloat(abs(foodWeight))/100
             self.arrowBalance.zRotation = rotateRight+(self.sum)
         case "apple":
-            self.sum += CGFloat(foodWeight)/100
+            self.sum += CGFloat(abs(foodWeight))/100
             self.arrowBalance.zRotation = rotateRight+(self.sum)
         case "hamburguer":
             self.sum -= CGFloat(abs(foodWeight))/100

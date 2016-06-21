@@ -36,7 +36,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //hudlayer
         self.hudLayer = HudLayer(size: size)
-        
         self.addChild(hudLayer)
         
 //        self.initialExplosion()

@@ -26,7 +26,7 @@ class Player: GameObject {
     //Instatiate the object with position as parameter
     init(position: CGPoint) {
         self.isDead = false
-        self.silhuet = "normal"
+        self.silhuet = "pesonormal"
         super.init(texture: SKTexture(imageNamed: "normal_Idle1"), color: UIColor.clearColor(), size: CGSizeMake(50, 50))
         self.position = position
         self.physicsBody = self.generatePhysicsBody()
@@ -57,7 +57,7 @@ class Player: GameObject {
             self.slimState = self.slimGuy()
             
         } else if (self.weight >= 4 && self.weight < 8 && isDead != true ) {
-            self.silhuet = "normal"
+            self.silhuet = "pesonormal"
         }
         else if self.weight > 7 && self.weight <= 10 && isDead != true {
             self.silhuet = "gordo"
@@ -79,11 +79,11 @@ class Player: GameObject {
         let silhuet = self.silhuet
         var idleTextures: [SKTexture] = []
         
-        for i in 1 ... 2 {
-            idleTextures.append(SKTexture(imageNamed: "\(silhuet)_Idle\(i)"))
+        for i in 1 ... 5 {
+            idleTextures.append(SKTexture(imageNamed: "\(silhuet)\(i)"))
         }
         
-        let idle = SKAction.animateWithTextures(idleTextures, timePerFrame: 0.5)
+        let idle = SKAction.animateWithTextures(idleTextures, timePerFrame: 0.2)
         
         return idle
     }
@@ -93,11 +93,9 @@ class Player: GameObject {
         let silhuet = self.silhuet
         var eatingTextures: [SKTexture] = []
         
-        for i in 1 ... 2 {
-            eatingTextures.append(SKTexture(imageNamed: "\(silhuet)_eat\(i)"))
-        }
+            eatingTextures.append(SKTexture(imageNamed: "\(silhuet)comendo"))
         
-        let eating = SKAction.animateWithTextures(eatingTextures, timePerFrame: 0.05)
+        let eating = SKAction.animateWithTextures(eatingTextures, timePerFrame: 0.1)
         
         return eating
     }
@@ -106,11 +104,11 @@ class Player: GameObject {
         let silhuet = self.silhuet
         var runningTextures: [SKTexture] = []
         
-        for i in 1 ... 2 {
-            runningTextures.append(SKTexture(imageNamed: "\(silhuet)_Idle\(i)"))
+        for i in 1 ... 5 {
+            runningTextures.append(SKTexture(imageNamed: "\(silhuet)\(i)"))
         }
         
-        let running = SKAction.animateWithTextures(runningTextures, timePerFrame: 0.5)
+        let running = SKAction.animateWithTextures(runningTextures, timePerFrame: 0.1)
         
         return running
     }
@@ -121,11 +119,11 @@ class Player: GameObject {
         let silhuet = self.silhuet
         var fatTextures: [SKTexture] = []
         
-        for i in 1 ... 2 {
-            fatTextures.append(SKTexture(imageNamed: "\(silhuet)_getGordo\(i)"))
+        for i in 1 ... 5 {
+            fatTextures.append(SKTexture(imageNamed: "\(silhuet)\(i)"))
         }
         
-        let fating = SKAction.animateWithTextures(fatTextures, timePerFrame: 0.5)
+        let fating = SKAction.animateWithTextures(fatTextures, timePerFrame: 0.1)
         
         return fating
         
@@ -135,11 +133,11 @@ class Player: GameObject {
         let silhuet = self.silhuet
         var slimTextures: [SKTexture] = []
         
-        for i in 1 ... 2 {
-            slimTextures.append(SKTexture(imageNamed: "\(silhuet)_Idle\(i)"))
+        for i in 1 ... 5 {
+            slimTextures.append(SKTexture(imageNamed: "\(silhuet)\(i)"))
         }
         
-        let slim = SKAction.animateWithTextures(slimTextures, timePerFrame: 0.5)
+        let slim = SKAction.animateWithTextures(slimTextures, timePerFrame: 0.1)
         
         return slim
         
@@ -153,7 +151,7 @@ class Player: GameObject {
             deathSkullTextures.append(SKTexture(imageNamed: "\(silhuet)\(i)"))
         }
         
-        let skull = SKAction.animateWithTextures(deathSkullTextures, timePerFrame: 0.266)
+        let skull = SKAction.animateWithTextures(deathSkullTextures, timePerFrame: 0.5)
         
         return skull
         
@@ -182,6 +180,9 @@ class Player: GameObject {
         self.deathExplosionState = self.deathExplosionGuy()
         self.deathSkullState = self.deathSkullGuy()
     }
+    
+    
+    
     
     //MARK: Player Actions
     func idle() -> SKAction {
