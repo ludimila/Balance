@@ -20,7 +20,7 @@ class BackgroundMusic: NSObject {
             music = try AVAudioPlayer(contentsOfURL: musicUrl!)
             music.numberOfLoops = -1
             music.prepareToPlay()
-            music.volume = 0.0
+//            music.volume = 0.0
             music.play()
         } catch {
             print("\(error)")

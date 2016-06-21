@@ -21,6 +21,9 @@ class MenuScene: SKScene {
     var swipeLeft: UISwipeGestureRecognizer!
     var swipeRight: UISwipeGestureRecognizer!
     
+    var soundButton: CustomButton!
+    
+    
     override func didMoveToView(view: SKView) {
         //smoke particle
         let path = NSBundle.mainBundle().pathForResource("SmokeParticle", ofType: "sks")
@@ -48,10 +51,9 @@ class MenuScene: SKScene {
         self.addButtons()
     }
     
-    
     func addButtons() {
         let gamecenterButton = CustomButton(image: "gamecenter", action: {
-            print("clicou game center")
+            self.gameCenterAction()
         })
         gamecenterButton.zPosition = 0
         gamecenterButton.position = CGPointMake(250, 180)
@@ -61,12 +63,7 @@ class MenuScene: SKScene {
         self.arrCustomButton.append(gamecenterButton)
         
         let playButton = CustomButton(image: "play", action: {
-            let scene = GameScene(size: self.size)
-            let skView = self.view
-            
-            scene.scaleMode = .AspectFill
-            let transition = SKTransition.crossFadeWithDuration(1)
-            skView!.presentScene(scene, transition: transition)
+            self.playButtonAction()
         })
         playButton.zPosition = 0
         playButton.position = CGPointMake(430, 400)
@@ -75,29 +72,60 @@ class MenuScene: SKScene {
         self.arrCustomButton.append(playButton)
         self.setupGestureRecognizers(view!)
 
+        var button_name = String()
+        let defaults = NSUserDefaults.standardUserDefaults()
         
-        let soundButton = CustomButton(image: "sound_on", action: {
+        var isPlaying:Bool = true
+        isPlaying = defaults.boolForKey("isPlaying")
+        if isPlaying {
+            button_name = "sound_on"
+        }else {
+            button_name = "sound_off"
+        }
+        
+       
+        self.soundButton = CustomButton(image: button_name, action: {
             self.soundButtonAction()
         })
-        soundButton.position = CGPointMake(550, 160)
-        soundButton.zPosition = 0
-        soundButton.setScale(1.2)
-        self.addChild(soundButton)
-        soundButton.isFocused = false
+        self.soundButton.position = CGPointMake(550, 160)
+        self.soundButton.zPosition = 0
+        self.soundButton.setScale(1.2)
+        self.addChild(self.soundButton)
+        self.soundButton.isFocused = false
         self.arrCustomButton.append(soundButton)
+    }
+    
+    //MARK: - Button's Action
+    func playButtonAction() {
+        let scene = GameScene(size: self.size)
+        let skView = self.view
+        
+        scene.scaleMode = .AspectFill
+        let transition = SKTransition.crossFadeWithDuration(1)
+        skView!.presentScene(scene, transition: transition)
     }
     
     func soundButtonAction() {
         self.musicBG = BackgroundMusic.sharedInstance
         if self.musicBG.music.playing == true {
-            //tá tocando
-            print("tocando")
+            self.musicBG.music.pause()
+            //change sprite image
+            self.soundButton.texture = SKTexture(imageNamed: "sound_off")
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setBool(false, forKey: "isPlaying")
         }else {
-            //                tá parado
-            print("nao tá tocando")
+            self.musicBG.music.play()
+            //change sprite image
+            self.soundButton.texture = SKTexture(imageNamed: "sound_on")
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setBool(true, forKey: "isPlaying")
         }
     }
     
+    func gameCenterAction() {
+        //TO DO
+        print("Clicou game center")
+    }
     
     //MARK: - Gesture Recognizer
     func setupGestureRecognizers(view: SKView) {
@@ -138,6 +166,7 @@ class MenuScene: SKScene {
         self.addFocus(self.focusIndex)
     }
     
+    //MARK: - Focus
     func addFocus(index: Int) {
         let button = self.arrCustomButton[index]
         button.isFocused = true
@@ -146,7 +175,6 @@ class MenuScene: SKScene {
     func removeFocus(index: Int) {
         self.arrCustomButton[index].isFocused = false
     }
-
     
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
         for button in self.arrCustomButton {
