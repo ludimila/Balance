@@ -18,7 +18,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var time:Int = 3
     var ascending = false
     var actionTimeGame = SKAction()
-    let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
+    let timerLabel = SKLabelNode(fontNamed:"CartoonistKooky")
     
     var actualSumFood = CGFloat()
     

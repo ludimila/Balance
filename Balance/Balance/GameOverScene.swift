@@ -34,7 +34,7 @@ class GameOverScene: SKScene {
         //Write a message to player
 //        let message = over ? "Game Over: Você comeu demais!!!" : "Game Over: Você comeu pouco!!!"
         
-        let label = SKLabelNode(fontNamed: "Chalkduster")
+        let label = SKLabelNode(fontNamed: "CartoonistKooky")
         label.text = "Game Over!!!"
         label.fontSize = 100
         label.zPosition = 5

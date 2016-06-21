@@ -32,7 +32,7 @@ class GameLayer: SKNode {
                  (-3, "corn")]
     
     var player: Player!
-    var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
+    var weightLabel = SKLabelNode(fontNamed:"CartoonistKooky")
     
     init(size: CGSize) {
         

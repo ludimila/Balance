@@ -16,6 +16,7 @@
 		2704FD7E1CE5053A00EEA563 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2704FD7C1CE5053A00EEA563 /* HighScore.swift */; };
 		2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2712B4971D14742400C12033 /* SmokeParticle.sks */; };
 		2712B49A1D14742400C12033 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B4981D14742400C12033 /* spark.png */; };
+		27EC88A11D197FA200DFA7DE /* cartoonist_kooky.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27EC88A01D197F9D00DFA7DE /* cartoonist_kooky.ttf */; };
 		27FFF4D91D1480AB009C2B93 /* FireParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 27FFF4D81D1480AB009C2B93 /* FireParticle.sks */; };
 		93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3A1CE3BC42008677AB /* GameLayer.swift */; };
 		93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */; };
@@ -46,6 +47,7 @@
 		2704FD7C1CE5053A00EEA563 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighScore.swift; path = ../HighScore.swift; sourceTree = "<group>"; };
 		2712B4971D14742400C12033 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
 		2712B4981D14742400C12033 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		27EC88A01D197F9D00DFA7DE /* cartoonist_kooky.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cartoonist_kooky.ttf; sourceTree = "<group>"; };
 		27FFF4D81D1480AB009C2B93 /* FireParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticle.sks; sourceTree = "<group>"; };
 		93894D3A1CE3BC42008677AB /* GameLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLayer.swift; sourceTree = "<group>"; };
 		93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundLayer.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		93894D381CE3BBE4008677AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				27EC88A01D197F9D00DFA7DE /* cartoonist_kooky.ttf */,
 				02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */,
 				B11EAA041D148A3900BB7652 /* Home.png */,
 				2712B4971D14742400C12033 /* SmokeParticle.sks */,
@@ -223,6 +226,7 @@
 			files = (
 				02208F7C1CE4FBBB009AF914 /* bensound-funnysong.mp3 in Resources */,
 				93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */,
+				27EC88A11D197FA200DFA7DE /* cartoonist_kooky.ttf in Resources */,
 				B11EAA051D148A3900BB7652 /* Home.png in Resources */,
 				93FE57491CE3B11E00C787C3 /* GameScene.sks in Resources */,
 				2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */,
