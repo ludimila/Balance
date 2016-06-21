@@ -17,6 +17,8 @@
 		2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2712B4971D14742400C12033 /* SmokeParticle.sks */; };
 		2712B49A1D14742400C12033 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B4981D14742400C12033 /* spark.png */; };
 		27EC88A11D197FA200DFA7DE /* cartoonist_kooky.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27EC88A01D197F9D00DFA7DE /* cartoonist_kooky.ttf */; };
+		27EC88AF1D19AC9C00DFA7DE /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 27EC88AE1D19AC9C00DFA7DE /* star.png */; };
+		27EC88B11D19AD6500DFA7DE /* FoodParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 27EC88B01D19AD6500DFA7DE /* FoodParticle.sks */; };
 		27FFF4D91D1480AB009C2B93 /* FireParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 27FFF4D81D1480AB009C2B93 /* FireParticle.sks */; };
 		93894D3B1CE3BC42008677AB /* GameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3A1CE3BC42008677AB /* GameLayer.swift */; };
 		93894D3D1CE3BCBD008677AB /* BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */; };
@@ -48,6 +50,8 @@
 		2712B4971D14742400C12033 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
 		2712B4981D14742400C12033 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		27EC88A01D197F9D00DFA7DE /* cartoonist_kooky.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cartoonist_kooky.ttf; sourceTree = "<group>"; };
+		27EC88AE1D19AC9C00DFA7DE /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		27EC88B01D19AD6500DFA7DE /* FoodParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FoodParticle.sks; sourceTree = "<group>"; };
 		27FFF4D81D1480AB009C2B93 /* FireParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticle.sks; sourceTree = "<group>"; };
 		93894D3A1CE3BC42008677AB /* GameLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLayer.swift; sourceTree = "<group>"; };
 		93894D3C1CE3BCBD008677AB /* BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundLayer.swift; sourceTree = "<group>"; };
@@ -109,7 +113,9 @@
 				B11EAA041D148A3900BB7652 /* Home.png */,
 				2712B4971D14742400C12033 /* SmokeParticle.sks */,
 				B11EAA021D148A0A00BB7652 /* Restart.png */,
+				27EC88AE1D19AC9C00DFA7DE /* star.png */,
 				2712B4981D14742400C12033 /* spark.png */,
+				27EC88B01D19AD6500DFA7DE /* FoodParticle.sks */,
 				27FFF4D81D1480AB009C2B93 /* FireParticle.sks */,
 			);
 			name = Resources;
@@ -227,6 +233,7 @@
 				02208F7C1CE4FBBB009AF914 /* bensound-funnysong.mp3 in Resources */,
 				93FE57521CE3B11E00C787C3 /* Main.storyboard in Resources */,
 				27EC88A11D197FA200DFA7DE /* cartoonist_kooky.ttf in Resources */,
+				27EC88B11D19AD6500DFA7DE /* FoodParticle.sks in Resources */,
 				B11EAA051D148A3900BB7652 /* Home.png in Resources */,
 				93FE57491CE3B11E00C787C3 /* GameScene.sks in Resources */,
 				2712B4991D14742400C12033 /* SmokeParticle.sks in Resources */,
@@ -234,6 +241,7 @@
 				93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */,
 				27FFF4D91D1480AB009C2B93 /* FireParticle.sks in Resources */,
 				2712B49A1D14742400C12033 /* spark.png in Resources */,
+				27EC88AF1D19AC9C00DFA7DE /* star.png in Resources */,
 				02208F781CE3C927009AF914 /* MenuScene.sks in Resources */,
 				93FE574F1CE3B11E00C787C3 /* Game.xcassets in Resources */,
 			);
