@@ -35,10 +35,10 @@ class MenuScene: SKScene {
         self.addChild(smokeParticleLowest)
         
         
+        //Add BackgronudLayer
         self.backgroundLayer = BackgroundLayer(size: size)
         self.backgroundLayer.zPosition = -2
         self.addChild(self.backgroundLayer)
-        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -59,15 +59,6 @@ class MenuScene: SKScene {
             skView!.ignoresSiblingOrder = true
             
             scene.scaleMode = .AspectFill
-            
-            let path = NSBundle.mainBundle().pathForResource("FireParticle", ofType: "sks")
-            let fireParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
-            
-            fireParticle.name = "fireParticle"
-            fireParticle.position = CGPointMake(self.size.width/2, self.size.width/2.20)
-            fireParticle.targetNode = self.scene
-            
-            self.addChild(fireParticle)
             
             let transition = SKTransition.crossFadeWithDuration(1)
             

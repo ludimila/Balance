@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-import CoreData
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -21,14 +20,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var actionTimeGame = SKAction()
     let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
     
+    var actualSumFood = CGFloat()
+    
+    //HudLayer
+    var hudLayer: HudLayer!
+    
     override init(size: CGSize) {
+        
         super.init(size: size)
         self.physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -1)
         self.backgroundLayer = BackgroundLayer(size: size)
         self.addChild(self.backgroundLayer)
+        
+        
+        //hudlayer
+        self.hudLayer = HudLayer(size: size)
+        
+        self.addChild(hudLayer)
+        
+//        self.initialExplosion()
     }
     
+    
+    func initialExplosion() {
+        let path = NSBundle.mainBundle().pathForResource("FireParticle", ofType: "sks")
+        let fireParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        
+        fireParticle.name = "fireParticle"
+        fireParticle.position = CGPointMake(self.size.width/2, self.size.width/2.20)
+        fireParticle.targetNode = self.scene
+        
+        self.addChild(fireParticle)
+    }
+    
+    
+    //timer label tem que ir pra hud e modularizar essa funcao
+
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         self.physicsWorld.gravity = CGVectorMake(0.0, self.worldGravity)
@@ -56,14 +84,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.actionTimeGame = SKAction.runBlock {
             if self.time <= 3 && self.ascending == false {
                 if self.time == 0 {
-                    self.timerLabel.text = "GO!"
-                    
                     self.updateLabelPosition()
                     self.ascending = true
                     self.time += 1
                     
                     self.gameLayer = GameLayer(size: self.size)
                     self.addChild(self.gameLayer)
+                    self.gameLayer.hudLayer = self.hudLayer
                 }else {
                     self.timerLabel.text = "\(self.time)"
                     self.time -= 1
@@ -89,10 +116,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-//    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        self.gameLayer.touchesMoved(touches, withEvent: event)
-//    }
-    
     override func update(currentTime: CFTimeInterval) {
         if let _ = self.gameLayer {
             self.gameLayer.update(currentTime)
@@ -104,44 +127,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func updateLabelPosition() {
+        
         self.runAction(SKAction.runBlock({
-            self.timerLabel.position = CGPoint(x: self.timerLabel.position.x, y: CGRectGetMaxY(self.frame) - 160)
+            self.timerLabel.text = "GO!"
+            self.timerLabel.position = CGPoint(x: (self.frame.width/2 + self.frame.width/3), y: CGRectGetMaxY(self.frame) - 160)
         }))
-    }
-    
-    func saveHighscore() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let entity =  NSEntityDescription.entityForName("HighScore", inManagedObjectContext:managedContext)
-        
-        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        
-        highScore.setValue(self.time, forKey: "highscore")
-        
-        do {
-            try managedContext.save()
-
-        }catch{
-            fatalError("failure to save highsore: \(error)")
-        }
-    }
-    
-    func getSavedHIghScore() {
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest(entityName: "HighScore")
-        
-        do {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
-            
-            print(results)
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
     }
 }
