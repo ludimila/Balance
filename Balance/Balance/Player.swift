@@ -52,14 +52,14 @@ class Player: GameObject {
             self.position.x = self.position.x//stop player moviment
             self.userInteractionEnabled = false
     
-        }else if self.weight < 4 && self.weight > 0 && isDead != true {
+        }else if self.weight < 4 && self.weight > 0 {
             self.silhuet = "magro"
             self.slimState = self.slimGuy()
             
-        } else if (self.weight >= 4 && self.weight < 8 && isDead != true ) {
+        } else if self.weight >= 4 && self.weight < 8 {
             self.silhuet = "normal"
         }
-        else if self.weight > 7 && self.weight <= 10 && isDead != true {
+        else if self.weight > 7 && self.weight <= 10  {
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
 
