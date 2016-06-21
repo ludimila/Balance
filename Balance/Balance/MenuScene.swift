@@ -10,28 +10,24 @@ import SpriteKit
 
 class MenuScene: SKScene {
     
-    var playButton: SKNode! = nil
     var backgroundLayer: BackgroundLayer!
     
     override func didMoveToView(view: SKView) {
-        playButton = SKSpriteNode(texture: SKTexture(imageNamed: "play"), color: UIColor.clearColor(), size: CGSizeMake(300, 100))
-        playButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: self.frame.height/2)
-        playButton.zPosition = 3
-        self.addChild(playButton)
-        
         //smoke particle
         let path = NSBundle.mainBundle().pathForResource("SmokeParticle", ofType: "sks")
         let smokeParticleTaller = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         
-        smokeParticleTaller.position = CGPointMake(self.size.width/2 + 50, self.size.width/2.15)
+        smokeParticleTaller.position = CGPointMake(1350, 720)
         smokeParticleTaller.name = "smokeParticleTaller"
         smokeParticleTaller.targetNode = self.scene
+        smokeParticleTaller.particlePositionRange = CGVectorMake(60, 40)
         self.addChild(smokeParticleTaller)
         
         let smokeParticleLowest = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         smokeParticleLowest.name = "smokeParticleLowest"
-        smokeParticleLowest.position = CGPointMake(self.size.width/2-45, self.size.width/2.25)
+        smokeParticleLowest.position = CGPointMake(1565, 820)
         smokeParticleLowest.targetNode = self.scene
+        smokeParticleLowest.particlePositionRange = CGVectorMake(60, 40)
         self.addChild(smokeParticleLowest)
         
         
@@ -39,31 +35,57 @@ class MenuScene: SKScene {
         self.backgroundLayer = BackgroundLayer(size: size, scene: "menu")
         self.backgroundLayer.zPosition = -2
         self.addChild(self.backgroundLayer)
+        
+        self.addButtons()
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    
+    func addButtons() {
+        let playButton = CustomButton(image: "play", action: {
+            print("playButton")
+        })
+        playButton.zPosition = 0
+        playButton.position = CGPointMake(430, 400)
+        self.addChild(playButton)
+        
+        let gamecenterButton = CustomButton(image: "gamecenter", action: {
+            print("clicou game center")
+        })
+        gamecenterButton.zPosition = 0
+        gamecenterButton.position = CGPointMake(250, 180)
+        gamecenterButton.setScale(1.2)
+        self.addChild(gamecenterButton)
+        
+        let soundButton = CustomButton(image: "sound_on", action: {
+            print("clicou sound")
+        })
+        soundButton.position = CGPointMake(550, 160)
+        soundButton.zPosition = 0
+        soundButton.setScale(1.2)
+        self.addChild(soundButton)
+
+    }
+    
+//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
         
-        let touch: UITouch = touches.first!
-        let location: CGPoint = touch.locationInNode(self)
-        
-        if playButton.containsPoint(location) {
-
-            let scene = GameScene(size: self.size)
-            // Configure the view.
-            let skView = self.view
-            skView!.showsFPS = true
-            
-            skView!.showsNodeCount = true
-            
-            skView!.ignoresSiblingOrder = true
-            
-            scene.scaleMode = .AspectFill
-            
-            let transition = SKTransition.crossFadeWithDuration(1)
-            
-            skView!.presentScene(scene, transition: transition)
-        }
-    }
+//        if playButton.containsPoint(location) {
+//
+//            let scene = GameScene(size: self.size)
+//            // Configure the view.
+//            let skView = self.view
+//            skView!.showsFPS = true
+//            
+//            skView!.showsNodeCount = true
+//            
+//            skView!.ignoresSiblingOrder = true
+//            
+//            scene.scaleMode = .AspectFill
+//            
+//            let transition = SKTransition.crossFadeWithDuration(1)
+//            
+//            skView!.presentScene(scene, transition: transition)
+//        }
+//    }
 
 }
