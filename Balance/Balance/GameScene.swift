@@ -30,7 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         super.init(size: size)
         self.physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -1)
-        self.backgroundLayer = BackgroundLayer(size: size)
+        self.backgroundLayer = BackgroundLayer(size: size, scene: "game")
         self.addChild(self.backgroundLayer)
         
         

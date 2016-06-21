@@ -36,7 +36,7 @@ class MenuScene: SKScene {
         
         
         //Add BackgronudLayer
-        self.backgroundLayer = BackgroundLayer(size: size)
+        self.backgroundLayer = BackgroundLayer(size: size, scene: "menu")
         self.backgroundLayer.zPosition = -2
         self.addChild(self.backgroundLayer)
     }
