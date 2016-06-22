@@ -32,7 +32,6 @@ class GameLayer: SKNode {
     
     var player: Player!
 
-    var weightLabel = SKLabelNode(fontNamed:"CartoonistKooky")
     
     init(size: CGSize) {
         
@@ -44,10 +43,6 @@ class GameLayer: SKNode {
         self.addPlayer()
         self.dropFood()
 
-        self.weightLabel.fontSize = 65
-        self.weightLabel.position = CGPoint(x: 960, y: 540)
-        self.weightLabel.text = "\(self.player.getWeight())"
-        self.addChild(self.weightLabel)
     }
     
     
@@ -190,9 +185,6 @@ class GameLayer: SKNode {
     
             //atualiza peso do guaxinim
             self.player.changeWeight(weight)
-            
-            self.weightLabel.text = "\(self.player.getWeight())"
-            
             
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
