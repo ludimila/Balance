@@ -13,14 +13,10 @@ import SceneKit
 class GameLayer: SKNode {
 
     var foodSpawn = NSTimeInterval(1)
-
-    
     var hudLayer:HudLayer?
-    
     
     //player movement
     var presses = Set<UIPress>()
-    
     var food: Food!
     var screenSize:CGSize!
     let foods = [(3, "chicken_leg"),
@@ -45,16 +41,13 @@ class GameLayer: SKNode {
 
     }
     
-    
     //adiciona Player
     func addPlayer(){
-    
         self.player = Player(position: CGPointMake(self.screenSize.width/2, self.screenSize .height * 0.15))
         self.player.setScale(5.0)
         self.addChild(player)
         self.player.runAction(self.player.idle(), withKey: "animationAction")
     }
-    
     
     //faz comida cair
     func dropFood() {
@@ -64,7 +57,7 @@ class GameLayer: SKNode {
         let sequence = SKAction.sequence([dropFood, wait])
         let repeatActionForever = SKAction.repeatActionForever(sequence)
         
-        self.runAction(repeatActionForever)
+        self.runAction(repeatActionForever, withKey: "putFoodInScreen")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -73,9 +66,10 @@ class GameLayer: SKNode {
     
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
         self.presses = presses
-        self.movePlayer(self.presses)
+        if self.player.isDead == false {
+            self.movePlayer(self.presses)
+        }
     }
-    
     
     //move o player pra direita ou pra esquerda quando toca no controle
     func movePlayer(presses: Set<UIPress>){
@@ -83,48 +77,37 @@ class GameLayer: SKNode {
         var movementSpeed: NSTimeInterval!
         var movement: SKAction!
         
-        if self.player.isDead != true {
-           
-            for press in presses {
-                switch press.type {
-                case .LeftArrow:
-                    movementSpeed = (NSTimeInterval)(self.player.position.x / self.player.speedInPixelsPerSecond)
-                    
-                    movement = SKAction.moveToX(0, duration: movementSpeed)
-                    self.player.xScale = -5
-
-                case .RightArrow:
-                    movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x)/self.player.speedInPixelsPerSecond)
-                    movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
-                    self.player.xScale = 5
-
-                default:
-                    //stop movement
-                    movementSpeed = 0
-                    movement = SKAction.moveToX((self.player.position.x), duration: movementSpeed)
-                }
+        for press in presses {
+            switch press.type {
+            case .LeftArrow:
+                movementSpeed = (NSTimeInterval)(self.player.position.x / self.player.speedInPixelsPerSecond)
                 
-                let actionBloc = SKAction.runBlock({
-                    self.player.runAction(self.player.idle(), withKey: "animationAction")
-                })
-                
-                if movementSpeed != nil && movement != nil {
-                    let sequence = SKAction.sequence([movement, actionBloc])
-                    
-                    self.player.runAction(self.player.running(), withKey: "animationAction")
-                    self.player.runAction(sequence, withKey: "moveAction")
-                }
+                movement = SKAction.moveToX(0, duration: movementSpeed)
+                self.player.xScale = -5
+
+            case .RightArrow:
+                movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x)/self.player.speedInPixelsPerSecond)
+                movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
+                self.player.xScale = 5
+
+            default:
+                //stop movement
+                movementSpeed = 0
+                movement = SKAction.moveToX((self.player.position.x), duration: movementSpeed)
             }
-        }else{
             
-            //entra se o player estiver morto
-            movementSpeed = 0
-            movement = SKAction.moveToX((self.player.position.x), duration: movementSpeed)
+            let actionBloc = SKAction.runBlock({
+                self.player.runAction(self.player.idle(), withKey: "animationAction")
+            })
             
+            if movementSpeed != nil && movement != nil {
+                let sequence = SKAction.sequence([movement, actionBloc])
+                
+                self.player.runAction(self.player.running(), withKey: "animationAction")
+                self.player.runAction(sequence, withKey: "moveAction")
+            }
         }
-
     }
-    
     
     func update(currentTime: CFTimeInterval) {
 
@@ -134,7 +117,6 @@ class GameLayer: SKNode {
             self.food.removeFromParent()
         }
     }
-    
     
     //monitora onde o player tá, teletransporta e continua andandado
     func monitoringPlayerPosition() {
@@ -172,7 +154,6 @@ class GameLayer: SKNode {
     }
     
     func didBeginContact(contact: SKPhysicsContact)  {
-        
         if contact.bodyA.node!.isKindOfClass(Player) || contact.bodyB.node!.isKindOfClass(Food){
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
@@ -191,36 +172,33 @@ class GameLayer: SKNode {
                 (contact.bodyA.node as! Player).idle()
             })
         }
-        self.deadPlayer()
+        if player.isDead == true {
+            //remover todas as comidas da tela
+            self.removeAllFoods()
+            self.deadPlayer()
+        }
     }
-        
     
     func soundEffects() {
         self.runAction(SKAction.playSoundFileNamed("eating.mp3", waitForCompletion: false))
     }
     
     func deadPlayer(){
+        self.player.speedInPixelsPerSecond = 0
+        self.player.removeActionForKey("moveAction")
         
-        if player.isDead == true {
-            self.player.speedInPixelsPerSecond = 0
-            self.removeAllActions()
-            //remover todas as comidas da tela
-            self.removeAllFoods()
-            
-            //animações de quando o player morre
-            
-            if self.player.getWeight() > 0 {//comer demais
-                self.player.runAction(self.player.exploding())
-            }else {
-                self.player.runAction(self.player.skeleton())
-            }
-            
-            let gameoveraction = SKAction.waitForDuration(3)
-            runAction(gameoveraction, completion: {
-                self.saveHigshcore()
-                self.gameOver()
-            })
+        if self.player.getWeight() > 0 {//comer demais
+            self.player.runAction(self.player.exploding())
+        }else {
+            self.player.runAction(self.player.skeleton())
         }
+        
+        let gameoveraction = SKAction.waitForDuration(3)
+        runAction(gameoveraction, completion: {
+            self.saveHigshcore()
+            self.gameOver()
+        })
+        
     }
     
     //salva o novo recorde e pega o novo pra por na label do gameover
@@ -231,7 +209,6 @@ class GameLayer: SKNode {
         let newHighScore = HighScore.saveHighscore(timer!)
         
     }
-    
     
     func gameOver() {
         let transition = SKTransition.fadeWithColor(UIColor.clearColor(), duration: 3.0)
@@ -246,6 +223,8 @@ class GameLayer: SKNode {
     }
     
     func removeAllFoods() {
+        //remove action of put food in screen
+        self.removeActionForKey("putFoodInScreen")
         for i in self.foods {
             self.enumerateChildNodesWithName(i.1, usingBlock: { (food, stop) in
                 food.removeFromParent()
