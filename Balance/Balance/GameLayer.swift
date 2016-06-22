@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import SceneKit
 
 class GameLayer: SKNode {
 
@@ -31,8 +32,8 @@ class GameLayer: SKNode {
                  (-3, "corn")]
     
     var player: Player!
-    
-    var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
+
+    var weightLabel = SKLabelNode(fontNamed:"CartoonistKooky")
     
     init(size: CGSize) {
         
@@ -188,6 +189,10 @@ class GameLayer: SKNode {
             
             self.hudLayer?.movingBalance(nameFood, foodWeight: self.player.getWeight())
             
+            //particulas ao comer
+//             self.addEatParticle((contact.bodyB.node?.position)!)
+            
+    
             //atualiza peso do guaxinim
             self.player.changeWeight(weight)
             
@@ -240,7 +245,15 @@ class GameLayer: SKNode {
                 food.removeFromParent()
             })
         }
-        
+    }
+    
+    func addEatParticle(position: CGPoint) {
+        let path = NSBundle.mainBundle().pathForResource("FoodParticle", ofType: "sks")
+        let particle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        particle.name = "foodParticle"
+        particle.position = position
+        particle.targetNode = self.scene
+        self.addChild(particle)
     }
     
     

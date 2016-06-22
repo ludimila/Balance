@@ -108,7 +108,7 @@ class CustomButton: SKSpriteNode {
                 case UIPressType.PlayPause, UIPressType.Select:
                     self.actionBlock()
                 default:
-                    print("teste")
+                    print("")
                 }
             }
         }
