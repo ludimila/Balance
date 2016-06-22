@@ -23,18 +23,28 @@ class HighScore: NSManagedObject {
         let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext) as! HighScore
         
         highScore.highscore = score
+    
+        let newHighScore =  highScore.highscore!.integerValue
+        let oldHighScore = self.getSavedHIghScore().integerValue
         
-        do {
-            try managedContext.save()
-            
-        }catch{
-            fatalError("failure to save highsore: \(error)")
-        }
+        print("NOVO\(newHighScore)")
+        print("Velho\(oldHighScore)")
 
-       self.getSavedHIghScore()
+        
+        //so salva se o novo for maior que o antigo
+        if   newHighScore > oldHighScore {
+        
+            do {
+                try managedContext.save()
+            
+            }catch{
+                fatalError("failure to save highsore: \(error)")
+            }
+
+        }
     }
     
-    class func getSavedHIghScore()  {
+    class func getSavedHIghScore() -> NSNumber {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         var results = [AnyObject]()
@@ -44,15 +54,16 @@ class HighScore: NSManagedObject {
         let fetchRequest = NSFetchRequest(entityName: "HighScore")
         
         do {
-             results = try managedContext.executeFetchRequest(fetchRequest)
+            results = try managedContext.executeFetchRequest(fetchRequest)
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
         
-        let dictionary = results.last!
-        
-        
+        let highScore = results.last as! HighScore
+    
+      
+        return highScore.highscore!
         
     }
 }
