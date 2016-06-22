@@ -46,9 +46,7 @@ class HudLayer: SKNode {
         //transformar em constantes
         let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
         let rotateRight = CGFloat(M_PI_4*(0.5/10))
-        
-        print(foodWeight)
-        
+                
         switch foodName {
         case "corn":
             self.sum += CGFloat(abs(foodWeight))/100
