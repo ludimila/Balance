@@ -231,12 +231,12 @@ class GameLayer: SKNode {
         }
     }
     
-    
+    //salva o novo recorde e pega o novo pra por na label do gameover
     func saveHigshcore(){
         
         self.player.removeFromParent()
         let timer = Double((self.hudLayer?.timerLabel.text)!)
-        HighScore.saveHighscore(timer!)
+        let newHighScore = HighScore.saveHighscore(timer!)
         
     }
     

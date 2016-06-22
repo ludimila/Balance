@@ -13,7 +13,10 @@ import CoreData
 class HighScore: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-    class func saveHighscore(score: Double) {
+    class func saveHighscore(score: Double) -> Int {
+        
+        var highValue = 0
+
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
@@ -29,11 +32,11 @@ class HighScore: NSManagedObject {
         
         print("NOVO\(newHighScore)")
         print("Velho\(oldHighScore)")
-
+        
         
         //so salva se o novo for maior que o antigo
         if   newHighScore > oldHighScore {
-        
+            highValue = newHighScore
             do {
                 try managedContext.save()
             
@@ -41,7 +44,11 @@ class HighScore: NSManagedObject {
                 fatalError("failure to save highsore: \(error)")
             }
 
+        }else{
+            highValue = oldHighScore
         }
+        
+        return highValue
     }
     
     class func getSavedHIghScore() -> NSNumber {
@@ -61,7 +68,7 @@ class HighScore: NSManagedObject {
         }
         
         let highScore = results.last as! HighScore
-    
+
       
         return highScore.highscore!
         
