@@ -21,6 +21,9 @@ class Player: GameObject {
     private var weight: Int = 4
     private var silhuet: String!
     
+    var speedInPixelsPerSecond = CGFloat(640)
+
+    
     var isDead: Bool!
     
     //Instatiate the object with position as parameter
@@ -45,31 +48,41 @@ class Player: GameObject {
         self.weight = weight + self.weight
         
 
-        if self.weight <= -20 && self.isDead != true {
+        if self.weight <= -5 && self.isDead != true {
             self.silhuet = "skull"
             self.deathSkullState = self.deathSkullGuy()
             self.isDead = true
+            
+            self.speedInPixelsPerSecond = CGFloat(0)
             self.position.x = self.position.x//stop player moviment
             self.userInteractionEnabled = false
     
-        }else if self.weight < 4 && self.weight > 0 {
+        }else if self.weight < 0 && self.weight > 0 {
             self.silhuet = "magro"
+            self.initializeAnimations()
+
             self.slimState = self.slimGuy()
             
-        } else if self.weight >= 4 && self.weight < 8 {
+        } else if self.weight >= 5 && self.weight < 8 {
             self.silhuet = "normal"
+            self.initializeAnimations()
+
         }
-        else if self.weight > 7 && self.weight <= 10  {
+        else if self.weight > 6 && self.weight <= 10  {
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
-
-        } else if self.weight > 20 && isDead != true {
+            self.initializeAnimations()
+            
+        } else if self.weight > 10 && isDead != true {
             self.silhuet = "explosion"
             self.deathExplosionState = self.deathExplosionGuy()
             self.isDead = true
+            self.speedInPixelsPerSecond = CGFloat(0)
             self.position.x = self.position.x//stop player moviment
             self.userInteractionEnabled = false
         }
+        
+
     }
     
     //MARK: Animations
@@ -180,8 +193,8 @@ class Player: GameObject {
         self.deathExplosionState = self.deathExplosionGuy()
         self.deathSkullState = self.deathSkullGuy()
 
-        self.slimState = self.loadRunningAnimation()
-        self.fatState = self.loadRunningAnimation()
+        //self.slimState = self.loadRunningAnimation()
+        //self.fatState = self.loadRunningAnimation()
         
     }
     

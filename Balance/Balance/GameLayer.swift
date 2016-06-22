@@ -12,7 +12,6 @@ import SpriteKit
 class GameLayer: SKNode {
 
     var foodSpawn = NSTimeInterval(1)
-    var playerSpeedInPixelsPerSecond = CGFloat(640)
     var soma: CGFloat  = 0
 
     
@@ -32,6 +31,7 @@ class GameLayer: SKNode {
                  (-3, "corn")]
     
     var player: Player!
+    
     var weightLabel = SKLabelNode(fontNamed:"Chalkduster")
     
     init(size: CGSize) {
@@ -84,18 +84,22 @@ class GameLayer: SKNode {
     
     //move o player pra direita ou pra esquerda quando toca no controle
     func movePlayer(presses: Set<UIPress>){
+        
+        var movementSpeed: NSTimeInterval!
+        var movement: SKAction!
+        
         if self.player.isDead != true {
-            var movementSpeed: NSTimeInterval!
-            var movement: SKAction!
+           
             for press in presses {
                 switch press.type {
                 case .LeftArrow:
-                    movementSpeed = (NSTimeInterval)(self.player.position.x / self.playerSpeedInPixelsPerSecond)
+                    movementSpeed = (NSTimeInterval)(self.player.position.x / self.player.speedInPixelsPerSecond)
+                    
                     movement = SKAction.moveToX(0, duration: movementSpeed)
                     self.player.xScale = -5
 
                 case .RightArrow:
-                    movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x) / self.playerSpeedInPixelsPerSecond)
+                    movementSpeed = (NSTimeInterval)((self.screenSize.width - self.player.position.x)/self.player.speedInPixelsPerSecond)
                     movement = SKAction.moveToX(self.screenSize.width, duration: movementSpeed)
                     self.player.xScale = 5
 
@@ -116,7 +120,14 @@ class GameLayer: SKNode {
                     self.player.runAction(sequence, withKey: "moveAction")
                 }
             }
+        }else{
+            
+            //entra se o player estiver morto
+            movementSpeed = 0
+            movement = SKAction.moveToX((self.player.position.x), duration: movementSpeed)
+            
         }
+
     }
     
     
@@ -190,6 +201,7 @@ class GameLayer: SKNode {
         
         
         if player.isDead == true {
+            self.player.speedInPixelsPerSecond = 0
             self.removeAllActions()
             //remover todas as comidas da tela
             self.removeAllFoods()
