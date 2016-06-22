@@ -22,7 +22,6 @@ class Player: GameObject {
     private var silhuet: String!
     
     var speedInPixelsPerSecond = CGFloat(640)
-
     
     var isDead: Bool!
     
@@ -53,8 +52,6 @@ class Player: GameObject {
             self.deathSkullState = self.deathSkullGuy()
             self.isDead = true
             
-            self.speedInPixelsPerSecond = CGFloat(0)
-            self.position.x = self.position.x//stop player moviment
             self.userInteractionEnabled = false
     
         }else if self.weight < 0 && self.weight > 0 {
@@ -77,8 +74,7 @@ class Player: GameObject {
             self.silhuet = "explosion"
             self.deathExplosionState = self.deathExplosionGuy()
             self.isDead = true
-            self.speedInPixelsPerSecond = CGFloat(0)
-            self.position.x = self.position.x//stop player moviment
+            
             self.userInteractionEnabled = false
         }
         
@@ -198,9 +194,6 @@ class Player: GameObject {
         
     }
     
-    
-    
-    
     //MARK: Player Actions
     func idle() -> SKAction {
         let repeatForever = SKAction.repeatActionForever(self.idleState)
@@ -227,7 +220,6 @@ class Player: GameObject {
     func skeleton() -> SKAction {
         return self.deathSkullState
     }
-    
 
     
     //MARK: Object Physics
@@ -242,7 +234,4 @@ class Player: GameObject {
         
         return physicsBody
     }
-    
-    
-
 }
