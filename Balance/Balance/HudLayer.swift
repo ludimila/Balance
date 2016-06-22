@@ -16,6 +16,9 @@ class HudLayer: SKNode {
     var balance = SKSpriteNode()
     var sum: CGFloat = 0
     
+    let timerLabel = SKLabelNode(fontNamed:"CartoonistKooky")
+
+    
     init(size: CGSize) {
         super.init()
         
@@ -23,7 +26,7 @@ class HudLayer: SKNode {
         
         //balance
         self.balance = SKSpriteNode.init(imageNamed: "balance")
-        self.balance.position = CGPointMake(size.width/2+size.width/3, size.height - (balance.frame.size.height/2))
+        self.balance.position = CGPointMake(size.width/2+size.width/5, size.height/2+size.height/2.5)
         self.addChild(balance)
         
         

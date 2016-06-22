@@ -183,27 +183,34 @@ class GameLayer: SKNode {
             let weight = (contact.bodyB.node as! Food).weight
             let nameFood = (contact.bodyB.node as! Food).imageName
             
-//            //moving balance - TODO: Refatorar
-//            let hud = HudLayer(size: self.frame.size)
-//            self.soma = hud.movingBalance(self.soma, foodName: nameFood, foodWeight: self.player.getWeight())
-            
             self.hudLayer?.movingBalance(nameFood, foodWeight: self.player.getWeight())
             
+            self.soundEffects()
             //particulas ao comer
 //             self.addEatParticle((contact.bodyB.node?.position)!)
-            
     
             //atualiza peso do guaxinim
             self.player.changeWeight(weight)
             
             self.weightLabel.text = "\(self.player.getWeight())"
+            
+            
             contact.bodyB.node?.removeFromParent()
             contact.bodyA.node?.runAction((contact.bodyA.node as! Player).eating(), completion: {
                 (contact.bodyA.node as! Player).idle()
             })
         }
         
+        self.deadPlayer()
+      
+    }
         
+    
+    func soundEffects() {
+        self.runAction(SKAction.playSoundFileNamed("eating.mp3", waitForCompletion: false))
+    }
+    
+    func deadPlayer(){
         
         if player.isDead == true {
             self.player.speedInPixelsPerSecond = 0
