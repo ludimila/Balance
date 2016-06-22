@@ -30,5 +30,18 @@ class BackgroundMusic: NSObject {
     func pauseMusic() {
         music.pause()
     }
+    
+//    func playMusicMonitoring() {
+//    
+//    let defaults = NSUserDefaults.standardUserDefaults()
+//    if self.music.playing == true {
+//    self.music.pause()
+//    defaults.setBool(false, forKey: "isPlaying")
+//    }else {
+//    self.music.play()
+//    defaults.setBool(true, forKey: "isPlaying")
+//        }
+//    }
+
 
 }

@@ -25,6 +25,10 @@ class MenuScene: SKScene {
     
     
     override func didMoveToView(view: SKView) {
+        
+        self.musicBG = BackgroundMusic.sharedInstance
+        musicBG.playMusic()
+        
         //smoke particle
         let path = NSBundle.mainBundle().pathForResource("SmokeParticle", ofType: "sks")
         let smokeParticleTaller = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
@@ -107,17 +111,16 @@ class MenuScene: SKScene {
     
     func soundButtonAction() {
         self.musicBG = BackgroundMusic.sharedInstance
+        let defaults = NSUserDefaults.standardUserDefaults()
         if self.musicBG.music.playing == true {
             self.musicBG.music.pause()
             //change sprite image
             self.soundButton.texture = SKTexture(imageNamed: "sound_off")
-            let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setBool(false, forKey: "isPlaying")
         }else {
             self.musicBG.music.play()
             //change sprite image
             self.soundButton.texture = SKTexture(imageNamed: "sound_on")
-            let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setBool(true, forKey: "isPlaying")
         }
     }

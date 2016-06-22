@@ -14,6 +14,9 @@ class GameOverScene: SKScene {
     var focusableButtons = Array<CustomButton>()
     var focusIndex: Int!
     
+    var musicGO: GameOverMusic! = nil
+    var musicBG: BackgroundMusic! = nil
+    
     var swipeLeft: UISwipeGestureRecognizer!
     var swipeRight: UISwipeGestureRecognizer!
     
@@ -28,6 +31,12 @@ class GameOverScene: SKScene {
     }
     
     override func didMoveToView(view: SKView){
+        
+        self.musicBG = BackgroundMusic.sharedInstance
+        self.musicGO = GameOverMusic.sharedInstance
+        musicBG.pauseMusic()
+        musicGO.playMusic()
+        
         self.focusIndex = 0
         
         let label = SKLabelNode(fontNamed: "CartoonistKooky")
@@ -40,6 +49,7 @@ class GameOverScene: SKScene {
         
         let restartButton = CustomButton(image: "play_again", action: {
             
+            self.musicBG.playMusic()
             let scene = GameScene(size: self.size)
             let skView = self.view
             
@@ -59,6 +69,7 @@ class GameOverScene: SKScene {
         
         
         let menuButton = CustomButton(image: "home", action: {
+            self.musicBG.playMusic()
             let scene = MenuScene(fileNamed: "MenuScene")
             scene!.scaleMode = .AspectFill
             self.view!.presentScene(scene)
@@ -118,6 +129,7 @@ class GameOverScene: SKScene {
     override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
         for button in self.focusableButtons {
             button.handlPress(presses, withEvent: event)
+            self.musicGO.pauseMusic()
         }
     }
     

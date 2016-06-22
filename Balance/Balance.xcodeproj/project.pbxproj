@@ -36,6 +36,8 @@
 		93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93FE57531CE3B11E00C787C3 /* Assets.xcassets */; };
 		B11EAA011D1488F900BB7652 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11EAA001D1488F900BB7652 /* CustomButton.swift */; };
 		B11EAA031D148A0A00BB7652 /* Restart.png in Resources */ = {isa = PBXBuildFile; fileRef = B11EAA021D148A0A00BB7652 /* Restart.png */; };
+		B132A8E01D1B112700894AFE /* gameover.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B132A8DF1D1B112700894AFE /* gameover.mp3 */; };
+		B132A8E21D1B121300894AFE /* GameOverMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B132A8E11D1B121300894AFE /* GameOverMusic.swift */; };
 		B1F152BD1D089B97005AD4CF /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F152BC1D089B97005AD4CF /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,8 @@
 		93FE57551CE3B11E00C787C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B11EAA001D1488F900BB7652 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		B11EAA021D148A0A00BB7652 /* Restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Restart.png; sourceTree = "<group>"; };
+		B132A8DF1D1B112700894AFE /* gameover.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameover.mp3; sourceTree = "<group>"; };
+		B132A8E11D1B121300894AFE /* GameOverMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverMusic.swift; sourceTree = "<group>"; };
 		B1F152BC1D089B97005AD4CF /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +114,7 @@
 			children = (
 				27EC88A01D197F9D00DFA7DE /* cartoonist_kooky.ttf */,
 				02208F7B1CE4FBBB009AF914 /* bensound-funnysong.mp3 */,
+				B132A8DF1D1B112700894AFE /* gameover.mp3 */,
 				2712B4971D14742400C12033 /* SmokeParticle.sks */,
 				B11EAA021D148A0A00BB7652 /* Restart.png */,
 				938A03FA1D1ADA6E00889A56 /* eating.mp3 */,
@@ -129,6 +134,7 @@
 				93894D441CE3BDD0008677AB /* Food.swift */,
 				02208F7D1CE4FC58009AF914 /* BackgroundMusic.swift */,
 				B11EAA001D1488F900BB7652 /* CustomButton.swift */,
+				B132A8E11D1B121300894AFE /* GameOverMusic.swift */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -241,6 +247,7 @@
 				93FE57541CE3B11E00C787C3 /* Assets.xcassets in Resources */,
 				27FFF4D91D1480AB009C2B93 /* FireParticle.sks in Resources */,
 				2712B49A1D14742400C12033 /* spark.png in Resources */,
+				B132A8E01D1B112700894AFE /* gameover.mp3 in Resources */,
 				27EC88AF1D19AC9C00DFA7DE /* star.png in Resources */,
 				02208F781CE3C927009AF914 /* MenuScene.sks in Resources */,
 				93FE574F1CE3B11E00C787C3 /* Game.xcassets in Resources */,
@@ -267,6 +274,7 @@
 				93894D411CE3BD54008677AB /* Player.swift in Sources */,
 				B1F152BD1D089B97005AD4CF /* GameOverScene.swift in Sources */,
 				2704FD7A1CE503C200EEA563 /* HighScoreModel.xcdatamodeld in Sources */,
+				B132A8E21D1B121300894AFE /* GameOverMusic.swift in Sources */,
 				02208F7E1CE4FC58009AF914 /* BackgroundMusic.swift in Sources */,
 				93FE574D1CE3B11E00C787C3 /* GameViewController.swift in Sources */,
 				93FE57471CE3B11E00C787C3 /* AppDelegate.swift in Sources */,
