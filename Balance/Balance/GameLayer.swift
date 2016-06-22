@@ -13,7 +13,6 @@ import SceneKit
 class GameLayer: SKNode {
 
     var foodSpawn = NSTimeInterval(1)
-    var soma: CGFloat  = 0
 
     
     var hudLayer:HudLayer?
@@ -200,9 +199,7 @@ class GameLayer: SKNode {
                 (contact.bodyA.node as! Player).idle()
             })
         }
-        
         self.deadPlayer()
-      
     }
         
     
@@ -228,9 +225,19 @@ class GameLayer: SKNode {
             
             let gameoveraction = SKAction.waitForDuration(3)
             runAction(gameoveraction, completion: {
+                self.saveHigshcore()
                 self.gameOver()
             })
         }
+    }
+    
+    //salva o novo recorde e pega o novo pra por na label do gameover
+    func saveHigshcore(){
+        
+        self.player.removeFromParent()
+        let timer = Double((self.hudLayer?.timerLabel.text)!)
+        let newHighScore = HighScore.saveHighscore(timer!)
+        
     }
     
     
@@ -242,8 +249,8 @@ class GameLayer: SKNode {
         self.scene?.removeAllActions()
         self.scene?.removeFromParent()
         skview?.presentScene(newScene, transition: transition)
-
-
+        
+        
     }
     
     func removeAllFoods() {

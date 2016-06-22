@@ -13,27 +13,45 @@ import CoreData
 class HighScore: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-    func saveHighscore() {
+    class func saveHighscore(score: Double) -> Int {
+        
+        var highValue = 0
+
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
         
         let entity =  NSEntityDescription.entityForName("HighScore", inManagedObjectContext:managedContext)
         
-        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        print(highScore) //TODO: Tirar esse print
+        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext) as! HighScore
         
-//        highScore.setValue(self.time, forKey: "highscore")
+        highScore.highscore = score
+    
+        let newHighScore =  highScore.highscore!.integerValue
+        let oldHighScore = self.getSavedHIghScore().integerValue
         
-        do {
-            try managedContext.save()
+        print("NOVO\(newHighScore)")
+        print("Velho\(oldHighScore)")
+        
+        
+        //so salva se o novo for maior que o antigo
+        if   newHighScore > oldHighScore {
+            highValue = newHighScore
+            do {
+                try managedContext.save()
             
-        }catch{
-            fatalError("failure to save highsore: \(error)")
+            }catch{
+                fatalError("failure to save highsore: \(error)")
+            }
+
+        }else{
+            highValue = oldHighScore
         }
+        
+        return highValue
     }
     
-    func getSavedHIghScore() -> AnyObject {
+    class func getSavedHIghScore() -> NSNumber {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         var results = [AnyObject]()
@@ -43,15 +61,16 @@ class HighScore: NSManagedObject {
         let fetchRequest = NSFetchRequest(entityName: "HighScore")
         
         do {
-             results = try managedContext.executeFetchRequest(fetchRequest)
+            results = try managedContext.executeFetchRequest(fetchRequest)
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
         
-        return results.first!
+        let highScore = results.last as! HighScore
 
+      
+        return highScore.highscore!
+        
     }
-    
-
 }

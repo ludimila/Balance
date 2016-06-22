@@ -43,9 +43,17 @@ class GameOverScene: SKScene {
         label.text = "GAME OVER"
         label.fontSize = 100
         label.zPosition = 5
-        label.fontColor = SKColor.whiteColor()
-        label.position = CGPoint(x: size.width/2, y: size.height/2)
+        label.fontColor = SKColor.init(red: 251/255, green: 57/255, blue: 66/255, alpha: 1)
+        label.position = CGPoint(x: size.width/2, y: size.height/1.5)
         self.addChild(label)
+        
+        let shadowLabel = SKLabelNode(fontNamed: "CartoonistKooky")
+        shadowLabel.text = "GAME OVER"
+        shadowLabel.fontSize = 100.5
+        shadowLabel.zPosition = 4
+        shadowLabel.fontColor = SKColor.whiteColor()
+        shadowLabel.position = CGPoint(x: size.width/2, y: size.height/1.5)
+        self.addChild(shadowLabel)
         
         let restartButton = CustomButton(image: "play_again", action: {
             
