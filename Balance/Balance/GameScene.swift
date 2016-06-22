@@ -58,8 +58,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         self.physicsWorld.gravity = CGVectorMake(0.0, self.worldGravity)
+        
         self.hudLayer.timerLabel.fontSize = 65
-          self.hudLayer.timerLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y: self.frame.size.height/2+self.frame.size.height/3)
+        self.hudLayer.timerLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y: self.frame.size.height/2+self.frame.size.height/3)
         
         //smoke particle
         let path = NSBundle.mainBundle().pathForResource("SmokeParticle", ofType: "sks")

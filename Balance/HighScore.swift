@@ -13,17 +13,16 @@ import CoreData
 class HighScore: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-    func saveHighscore() {
+    class func saveHighscore(score: Double) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
         
         let entity =  NSEntityDescription.entityForName("HighScore", inManagedObjectContext:managedContext)
         
-        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        print(highScore) //TODO: Tirar esse print
+        let highScore = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext) as! HighScore
         
-//        highScore.setValue(self.time, forKey: "highscore")
+        highScore.highscore = score
         
         do {
             try managedContext.save()
@@ -31,9 +30,11 @@ class HighScore: NSManagedObject {
         }catch{
             fatalError("failure to save highsore: \(error)")
         }
+
+       self.getSavedHIghScore()
     }
     
-    func getSavedHIghScore() -> AnyObject {
+    class func getSavedHIghScore()  {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         var results = [AnyObject]()
@@ -49,9 +50,9 @@ class HighScore: NSManagedObject {
             print("Could not fetch \(error), \(error.userInfo)")
         }
         
-        return results.first!
-
+        let dictionary = results.last!
+        
+        
+        
     }
-    
-
 }
