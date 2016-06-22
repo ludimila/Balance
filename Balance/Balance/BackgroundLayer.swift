@@ -28,11 +28,6 @@ class BackgroundLayer: SKNode {
         
         if scene == "menu" {
             self.background = SKSpriteNode(texture: SKTexture(imageNamed: "initial_background"))
-            self.background.position = CGPointMake(size.width/2, size.height/2)
-            self.background.zPosition = -1
-            self.background.setScale(1)
-            self.background.texture!.filteringMode = .Nearest
-            self.addChild(self.background)
             
             let factory = SKSpriteNode(texture: SKTexture(imageNamed: "factory"))
             factory.position = CGPointMake(1450, 400)
@@ -57,12 +52,16 @@ class BackgroundLayer: SKNode {
             
         }else if scene == "game" {
             self.background = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
-            self.background.position = CGPointMake(size.width/2, size.height/2)
-            self.background.zPosition = -1
-            self.background.setScale(1)
-            self.background.texture!.filteringMode = .Nearest
-            self.addChild(self.background)
+    
+        }else if scene == "game_over" {
+            self.background = SKSpriteNode(texture: SKTexture(imageNamed: "background_blur"))
         }
+        
+        self.background.position = CGPointMake(size.width/2, size.height/2)
+        self.background.zPosition = -1
+        self.background.setScale(1)
+        self.background.texture!.filteringMode = .Nearest
+        self.addChild(self.background)
 
     }
 }

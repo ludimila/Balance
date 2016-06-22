@@ -18,19 +18,17 @@ class GameOverScene: SKScene {
     var swipeRight: UISwipeGestureRecognizer!
     
     var backgroundLayer: BackgroundLayer!
-
     
     override init(size: CGSize) {
      
         super.init(size: size)
         
-        backgroundColor = SKColor.blackColor()
+        self.backgroundLayer = BackgroundLayer(size: size, scene: "game_over")
+        self.addChild(self.backgroundLayer)
     }
     
     override func didMoveToView(view: SKView){
         self.focusIndex = 0
-        
-        self.setupBackground()
         
         let label = SKLabelNode(fontNamed: "CartoonistKooky")
         label.text = "GAME OVER"
@@ -72,25 +70,6 @@ class GameOverScene: SKScene {
         
         self.focusableButtons.append(menuButton)
         self.setupGestureRecognizers(view)
-    }
-    
-    func setupBackground() {
-        self.backgroundLayer = BackgroundLayer(size: size, scene: "game")
-        self.addChild(self.backgroundLayer)
-        
-////      blur effect
-//        let effectsNode = SKEffectNode()
-//        let filter = CIFilter(name: "CIGaussianBlur")
-//        // Set the blur amount. Adjust this to achieve the desired effect
-//        let blurAmount = 10.0
-//        filter!.setValue(blurAmount, forKey: kCIInputRadiusKey)
-//        
-//        effectsNode.filter = filter
-//        effectsNode.position = CGPointMake(self.backgroundLayer.position.x, self.backgroundLayer.position.y)
-//        effectsNode.blendMode = .Alpha
-//        
-//        self.backgroundLayer.addChild(effectsNode)
-
     }
     
     func setupGestureRecognizers (view: SKView) -> Void {
