@@ -173,7 +173,10 @@ class GameLayer: SKNode {
             })
         }
         if player.isDead == true {
-            //remover todas as comidas da tela
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(self.hudLayer?.timerLabel.text, forKey: "actualScore")
+            
+            
             self.removeAllFoods()
             self.deadPlayer()
         }

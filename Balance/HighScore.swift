@@ -28,7 +28,7 @@ class HighScore: NSManagedObject {
         highScore.highscore = score
     
         let newHighScore =  highScore.highscore!.integerValue
-        let oldHighScore = self.getSavedHIghScore().integerValue
+        let oldHighScore = self.getSavedHighScore().integerValue
         
         print("NOVO\(newHighScore)")
         print("Velho\(oldHighScore)")
@@ -51,7 +51,7 @@ class HighScore: NSManagedObject {
         return highValue
     }
     
-    class func getSavedHIghScore() -> NSNumber {
+    class func getSavedHighScore() -> NSNumber {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         var results = [AnyObject]()

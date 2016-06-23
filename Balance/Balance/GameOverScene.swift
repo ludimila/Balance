@@ -30,12 +30,14 @@ class GameOverScene: SKScene {
     override func didMoveToView(view: SKView){
         self.focusIndex = 0
         
+        let savedHighScore = HighScore.getSavedHighScore()
+        
         let label = SKLabelNode(fontNamed: "CartoonistKooky")
         label.text = "GAME OVER"
         label.fontSize = 100
         label.zPosition = 5
         label.fontColor = SKColor.init(red: 251/255, green: 57/255, blue: 66/255, alpha: 1)
-        label.position = CGPoint(x: size.width/2, y: size.height/1.5)
+        label.position = CGPoint(x: size.width/2, y: size.height/1.5 + 200)
         self.addChild(label)
         
         let shadowLabel = SKLabelNode(fontNamed: "CartoonistKooky")
@@ -43,8 +45,47 @@ class GameOverScene: SKScene {
         shadowLabel.fontSize = 100.5
         shadowLabel.zPosition = 4
         shadowLabel.fontColor = SKColor.whiteColor()
-        shadowLabel.position = CGPoint(x: size.width/2, y: size.height/1.5)
+        shadowLabel.position = CGPoint(x: size.width/2, y: size.height/1.5 + 200)
         self.addChild(shadowLabel)
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let actualScore = defaults.objectForKey("actualScore")
+        
+        
+        let score = SKLabelNode(fontNamed: "CartoonistKooky")
+        score.text = "SCORE:  \(String(actualScore!))"
+        score.fontSize = 100
+        score.zPosition = 5
+        score.fontColor = SKColor.init(red: 251/255, green: 57/255, blue: 66/255, alpha: 1)
+        score.position = CGPoint(x: size.width/2, y: size.height/1.5)
+        self.addChild(score)
+        
+        
+        let scoreShadow = SKLabelNode(fontNamed: "CartoonistKooky")
+        scoreShadow.text = "SCORE:  \(String(actualScore!))"
+        scoreShadow.fontSize = 100.5
+        scoreShadow.zPosition = 4
+        scoreShadow.fontColor = SKColor.whiteColor()
+        scoreShadow.position = CGPoint(x: size.width/2, y: size.height/1.5)
+        self.addChild(scoreShadow)
+
+        
+        
+        let highscore = SKLabelNode(fontNamed: "CartoonistKooky")
+        highscore.text = ("HIGHSCORE: \(String(savedHighScore))")
+        highscore.fontSize = 100
+        highscore.zPosition = 5
+        highscore.fontColor = SKColor.init(red: 251/255, green: 57/255, blue: 66/255, alpha: 1)
+        highscore.position = CGPoint(x: label.position.x, y: size.height/1.5 - 200)
+        self.addChild(highscore)
+        
+        let highscoreShadow = SKLabelNode(fontNamed: "CartoonistKooky")
+        highscoreShadow.text = ("HIGHSCORE: \(String(savedHighScore))")
+        highscoreShadow.fontSize = 100.5
+        highscoreShadow.zPosition = 4
+        highscoreShadow.fontColor = SKColor.whiteColor()
+        highscoreShadow.position = CGPoint(x: label.position.x, y: size.height/1.5 - 200)
+        self.addChild(highscoreShadow)
         
         let restartButton = CustomButton(image: "play_again", action: {
             
