@@ -11,6 +11,8 @@ import AVFoundation
 
 class BackgroundMusic: NSObject {
     
+    var statusSoundEffect = true
+    
     var music = AVAudioPlayer()
     static let sharedInstance = BackgroundMusic()
     
@@ -29,6 +31,11 @@ class BackgroundMusic: NSObject {
     
     func pauseMusic() {
         music.pause()
+    }
+    
+    func removeEffects() -> Bool {
+        
+        return self.statusSoundEffect
     }
 
 }

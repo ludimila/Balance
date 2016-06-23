@@ -180,7 +180,12 @@ class GameLayer: SKNode {
     }
     
     func soundEffects() {
-        self.runAction(SKAction.playSoundFileNamed("eating2.mp3", waitForCompletion: true))
+        
+        if BackgroundMusic.sharedInstance.statusSoundEffect == true{
+            self.runAction(SKAction.playSoundFileNamed("eating2.mp3", waitForCompletion: true))
+        }else{
+            print("sem efeito sonoro")
+        }
     }
     
     func deadPlayer(){

@@ -20,9 +20,10 @@ class MenuScene: SKScene {
     var swipeUp: UISwipeGestureRecognizer!
     var swipeLeft: UISwipeGestureRecognizer!
     var swipeRight: UISwipeGestureRecognizer!
+    var swipeDown: UISwipeGestureRecognizer!
     
     var soundButton: CustomButton!
-    
+    var effectButton: CustomButton!
     
     override func didMoveToView(view: SKView) {
         //smoke particle
@@ -87,12 +88,23 @@ class MenuScene: SKScene {
         self.soundButton = CustomButton(image: button_name, action: {
             self.soundButtonAction()
         })
-        self.soundButton.position = CGPointMake(550, 160)
+        self.soundButton.position = CGPointMake(550, 200)
         self.soundButton.zPosition = 0
         self.soundButton.setScale(1.2)
         self.addChild(self.soundButton)
         self.soundButton.isFocused = false
         self.arrCustomButton.append(soundButton)
+        
+        
+        self.effectButton = CustomButton(image: button_name, action: {
+            self.effectAction()
+        })
+        self.effectButton.position = CGPointMake(550, 110)
+        self.effectButton.zPosition = 0
+        self.effectButton.setScale(1)
+        self.addChild(self.effectButton)
+        self.soundButton.isFocused = false
+        self.arrCustomButton.append(effectButton)
     }
     
     //MARK: - Button's Action
@@ -122,6 +134,26 @@ class MenuScene: SKScene {
         }
     }
     
+    func effectAction() {
+        print("Clicou effect")
+        
+        if BackgroundMusic.sharedInstance.statusSoundEffect == true {
+            //change sprite image
+            self.effectButton.texture = SKTexture(imageNamed: "sound_off")
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setBool(false, forKey: "isPlaying")
+            BackgroundMusic.sharedInstance.statusSoundEffect = false
+        }else {
+            //change sprite image
+            self.effectButton.texture = SKTexture(imageNamed: "sound_on")
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setBool(true, forKey: "isPlaying")
+            BackgroundMusic.sharedInstance.statusSoundEffect = true
+
+        }
+
+    }
+    
     func gameCenterAction() {
         //TO DO
         print("Clicou game center")
@@ -141,7 +173,11 @@ class MenuScene: SKScene {
         self.swipeRight = UISwipeGestureRecognizer.init(target:self, action: #selector(MenuScene.handleSwipeRight))
         self.swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         view.addGestureRecognizer(self.swipeRight)
-    
+        
+        self.swipeDown = UISwipeGestureRecognizer.init(target:self, action: #selector(MenuScene.handleSwipeDown))
+        self.swipeDown.direction = UISwipeGestureRecognizerDirection.Down
+        view.addGestureRecognizer(self.swipeDown)
+        
         self.userInteractionEnabled = true
     }
     
@@ -162,6 +198,13 @@ class MenuScene: SKScene {
     func handleSwipeRight(gesture: UIGestureRecognizer) {
         self.removeFocus(self.focusIndex)
         self.focusIndex = 2
+        
+        self.addFocus(self.focusIndex)
+    }
+    
+    func handleSwipeDown(gesture: UIGestureRecognizer) {
+        self.removeFocus(self.focusIndex)
+        self.focusIndex = 3
         
         self.addFocus(self.focusIndex)
     }
