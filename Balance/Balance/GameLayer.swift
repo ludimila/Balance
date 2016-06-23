@@ -19,12 +19,12 @@ class GameLayer: SKNode {
     var presses = Set<UIPress>()
     var food: Food!
     var screenSize:CGSize!
-    let foods = [(3, "chicken_leg"),
-                 (2,"hamburguer"),
+    let foods = [(1, "chicken_leg"),
+                 (1,"hamburguer"),
                  (1,"bacon"),
                  (-1,"apple"),
-                 (-2,"lettuce"),
-                 (-3, "corn")]
+                 (-1,"lettuce"),
+                 (-1, "corn")]
     
     var player: Player!
 
@@ -180,7 +180,7 @@ class GameLayer: SKNode {
     }
     
     func soundEffects() {
-        self.runAction(SKAction.playSoundFileNamed("eating.mp3", waitForCompletion: false))
+        self.runAction(SKAction.playSoundFileNamed("eating2.mp3", waitForCompletion: true))
     }
     
     func deadPlayer(){

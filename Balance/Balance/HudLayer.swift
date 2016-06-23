@@ -44,27 +44,27 @@ class HudLayer: SKNode {
     
     func movingBalance(foodName: String, foodWeight: Int){
         //transformar em constantes
-        let rotateLeft = CGFloat(M_PI_4*(-0.5/10))
-        let rotateRight = CGFloat(M_PI_4*(0.5/10))
+        let rotateLeft = CGFloat(M_PI_2*(-0.5)/4)
+        let rotateRight = CGFloat(M_PI_4*(0.5)/4)
                 
         switch foodName {
         case "corn":
-            self.sum += CGFloat(abs(foodWeight))/100
+            self.sum += CGFloat(abs(foodWeight))/90
             self.arrowBalance.zRotation = rotateRight+(self.sum)
         case "lettuce":
-            self.sum += CGFloat(abs(foodWeight))/100
+            self.sum += CGFloat(abs(foodWeight))/90
             self.arrowBalance.zRotation = rotateRight+(self.sum)
         case "apple":
-            self.sum += CGFloat(abs(foodWeight))/100
+            self.sum += CGFloat(abs(foodWeight))/90
             self.arrowBalance.zRotation = rotateRight+(self.sum)
         case "hamburguer":
-            self.sum -= CGFloat(abs(foodWeight))/100
+            self.sum -= CGFloat(abs(foodWeight))/90
             self.arrowBalance.zRotation = rotateLeft+(self.sum)
         case "bacon":
-            self.sum -= CGFloat(abs(foodWeight))/100
+            self.sum -= CGFloat(abs(foodWeight))/90
             self.arrowBalance.zRotation = rotateLeft+(self.sum)
         case "chicken_leg":
-            self.sum -= CGFloat(abs(foodWeight))/100
+            self.sum -= CGFloat(abs(foodWeight))/90
             self.arrowBalance.zRotation = rotateLeft+(self.sum)
         default:
             print(#function, "Error")

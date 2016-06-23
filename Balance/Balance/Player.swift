@@ -18,7 +18,7 @@ class Player: GameObject {
     private var eatState: SKAction!
     private var deathSkullState: SKAction!
     private var deathExplosionState: SKAction!
-    private var weight: Int = 4
+    private var weight: Int = 0
     private var silhuet: String!
     
     var speedInPixelsPerSecond = CGFloat(640)
@@ -47,25 +47,25 @@ class Player: GameObject {
         self.weight = weight + self.weight
         
 
-        if self.weight <= -10 && self.isDead != true {
+        if self.weight <= -15 && self.isDead != true {
             self.silhuet = "skull"
             self.deathSkullState = self.deathSkullGuy()
             self.isDead = true
             
             self.userInteractionEnabled = false
     
-        }else if self.weight < 0 && self.weight > 0 {
+        }else if self.weight < -5 {
             self.silhuet = "magro"
             self.initializeAnimations()
 
             self.slimState = self.slimGuy()
             
-        } else if self.weight >= 5 && self.weight < 10 {
+        } else if self.weight < 5 {
             self.silhuet = "normal"
             self.initializeAnimations()
 
         }
-        else if self.weight > 6 && self.weight <= 10  {
+        else if self.weight <= 15  {
             self.silhuet = "gordo"
             self.fatState = self.fatguy()
             self.initializeAnimations()
